@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>controll-div</title>
+	<style type="text/css">
+		body{
+			margin:0 auto;
+		}
+		.container{
+			width: 300px;
+			margin: 0 auto;
+		}
+		#btn-group{
+			margin: 10px auto;
+			text-align: center;
+		}
+		#box{
+			width: 200px;
+			height: 200px;
+			margin: 0  auto;
+			background: #000;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div id="btn-group">
+		<button>变宽</button>
+		<button>变高</button>
+		<button>变色</button>
+		<button>隐藏</button>
+		<button>重置</button>
+	</div>
+	<div id="box"></div>
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var btns=document.getElementsByTagName('button');
+		var div=document.getElementById('box');
+		var attr=['width','height','background','display','display'];
+		var val=["250px",'250px','red','none','block'];
+		for(var i=0;i<btns.length;i++){
+			btns[i].index=i;//将i保存在每个对象中,这里涉及闭包
+			btns[i].onclick=function(){
+				div.style.cssText='';//先重置所有样式
+				if(this.index!==btns.length-1){
+					changeStyle(div,attr[this.index],val[this.index]);
+				}
+				
+			}
+		}
+	}
+	function changeStyle(ele,attr,val) {
+		ele.style[attr]=val;
+	}
+</script>
+</body>
+</html>
