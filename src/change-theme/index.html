@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>change-theme</title>
+	<style type="text/css">
+		.container{
+			width: 500px;
+			margin: 10px auto;
+		}
+		.btn-groups li{
+			width: 5px;
+			display: inline-block;
+			height: 5px;
+			cursor: pointer;
+			border: 4px solid;
+		}
+		#green{
+			border-color: green;
+			background: green;
+		}
+		#red{
+			border-color: red;
+			background: red;
+		}
+		#black{
+			border-color: black;
+			background: black;
+		}
+		#green.current,#red.current,#black.current{
+			background: #fff;
+		}
+		.nav{
+			
+			height: 40px;
+			line-height: 40px;
+			margin: 0;
+			padding:0;
+		}
+		.nav li{
+			display: inline-block;
+			float: left;
+			width: 98px;
+			text-align: center;
+			border:1px solid #fff;
+			margin: 0;
+			padding:0;
+		}
+		.nav li a{
+			display: inline-block;
+			width: 100%;
+			height: 100%;
+			text-decoration: none;
+			color: #fff;
+		}
+		.nav li a:hover{
+			text-decoration: underline;
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="green.css">
+</head>
+<body>
+	<div class="container">
+		<ul class="btn-groups">
+			<li id="green" class="current"></li>
+			<li id="red"></li>
+			<li id="black"></li>
+		</ul>
+		<ul class="nav">
+			<li><a href="#">苹果</a></li>
+			<li><a href="#">橘子</a></li>
+			<li><a href="#">香蕉</a></li>
+			<li><a href="#">芒果</a></li>
+			<li><a href="#">菠萝</a></li>
+		</ul>
+	</div>
+	<script type="text/javascript">
+		window.onload=function () {
+			var btns=document.getElementsByClassName("btn-groups")[0].getElementsByTagName('li');
+			var cssLink=document.getElementsByTagName("link")[0];
+			for(var i=0;i<btns.length;i++){
+				btns[i].onclick=function () {
+					for(var p in btns) btns[p].className='';
+					this.className='current';
+					cssLink['href']=this.id+'.css';
+				}
+			}
+		}
+	</script>
+</body>
+</html>
