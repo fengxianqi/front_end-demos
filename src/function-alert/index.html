@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>function-alert</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<input id="pro" type="text" value="广州市">
+	<input type="text" id="city" name="" value="天河区">
+	<input type="button" value="传参" id="btn">
+	<script type="text/javascript">
+		window.onload=function () {
+			var pro=document.getElementById('pro');
+			var city=document.getElementById('city');
+			var btn=document.getElementById('btn');
+			btn.onclick=function(){
+				myFun(pro,city);
+			}
+		}
+		function myFun(a,b){
+			alert(a.value);
+			alert(b.value);
+		}
+	</script>
+</body>
+</html>
