@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>loop-change-color</title>
+	<style type="text/css">
+		body{
+			width:330px;
+			height: 200px;
+			text-align: center;
+			margin:10px auto;
+		}
+		.box{
+			margin-top: 10px;
+		}
+		.box div{
+			width:100px;
+			height: 100px;
+			background: #000;
+			float: left;
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+<button>改变颜色</button>
+<div class="box">
+	<div></div>
+	<div></div>
+	<div></div>
+	<script type="text/javascript">
+		window.onload=function(){
+			var btn=document.getElementsByTagName("button")[0];
+			btn.onclick=function(){
+			var divs=document.getElementsByClassName("box")[0].getElementsByTagName("div");
+			for(var i=0;i<divs.length;i++){
+				divs[i].style.background="red";
+			}
+		}
+	}
+		
+	</script>
+</div>
+</body>
+</html>
