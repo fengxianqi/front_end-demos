@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>mouseover-mouseout</title>
+	<style type="text/css">
+		#div1{
+			margin:10px auto;
+			width:100px;
+			height: 100px;
+			background: #000;
+			border:10px solid #ccc;
+			cursor: crosshair;
+		}
+		#div1.hover{
+			background: #f00;
+			border:10px solid #00c;
+		}
+	</style>
+</head>
+<body>
+<div id="div1"></div>
+<script type="text/javascript">
+	window.onload=function(){
+		var div1=document.getElementById('div1');
+		div1.onmouseover=function(){
+			this.className='hover';
+		}
+		div1.onmouseout=function(){
+			this.className='';
+		}
+	}
+</script>
+</body>
+</html>
