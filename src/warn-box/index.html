@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>warn-box</title>
+	<style type="text/css">
+		body{
+			text-align: center;
+		}
+		#warn{
+			width:300px;
+			padding:5px;
+			margin-top:5px;
+			background:#ffefa4;
+			border:1px solid #f90;
+			display:none;
+			margin:0 auto;
+		}
+	</style>
+</head>
+<body>
+	<label><input type="checkbox" name="">记住密码</label>
+	<div id="warn">为了您的信息安全，请不要在网吧或公用电脑上使用此功能！</div>
+	<script type="text/javascript">
+		window.onload=function(){
+			var label=document.getElementsByTagName('label')[0];
+			var box=document.getElementById('warn');
+			label.onmouseover=function(){
+				box.style.display='block';
+			}
+			label.onmouseout=function(){
+				box.style.display='none';
+			}
+		}
+	</script>
+</body>
+</html>
