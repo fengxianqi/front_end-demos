@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>input-box</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	body{
+		text-align: center;
+		font:12px/1.5 Tahoma;
+	}
+		#input-box{
+			width: 70px;
+			border: 1px #00c solid;
+			padding: 0;
+			margin: 5px auto;
+			display: none;
+		}
+		#input-box ul{
+			list-style: none;
+
+			width: 100%;
+			padding: 0;
+			margin: 0;
+		}
+		#input-box ul li{
+			list-style: none;
+			display: block;
+			height: 30px;
+			line-height: 30px;
+			width: 100%;
+		}
+		.bottom-line{
+			border-bottom: 1px solid #00c;
+		}
+		a{
+			text-decoration: none;
+			display: block;
+		}
+		a:hover{
+			background: #ddd;
+		}
+	</style>
+</head>
+<body>
+<button>输入法</button>
+<div id="input-box">
+	<ul>
+		<li><a href="javascript:;">手写</a></li>
+		<li class="bottom-line"><a href="javascript:;">拼音</a></li>
+		<li><a href="javascript:;">关闭</a></li>
+	</ul>
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var box=document.getElementById('input-box');
+		var btn1=document.getElementsByTagName('button')[0];
+		var btnClose=document.getElementsByTagName('li')[2];
+		btn1.onclick=function(){
+			box.style.display=box.style.display=='block'?'none':'block';
+		}
+		btnClose.onclick=function(){
+			box.style.display='none';
+		}
+	}
+</script>
+</body>
+</html>
