@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>array-sum</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	body{color:#999;font:12px/1.5 Tahoma;}
+
+		div{
+			width:500px;
+			margin: 10px auto;
+		}
+		button{
+			margin-top: 10px;
+			display: block;
+		}
+		#sum{
+			font-size: 24px;
+			color:#f00;
+		}
+	</style>
+</head>
+<body>
+<div>
+<label><input type="text" value="1,2,3,4,5,6,7,8,9,10">输入数字求和，数字之间用半角","号分隔</label>
+<button>求和</button>
+<strong id="sum"></strong>
+</div>
+<script type="text/javascript">
+window.onload=function(){
+	var arr=document.getElementsByTagName('input')[0];
+	var btn=document.getElementsByTagName('button')[0];
+	var sumText=document.getElementsByTagName("strong")[0];
+	arr.onkeyup=function(){
+		this.value=this.value.replace(/[^\d,]/g,'');
+	}
+	btn.onclick=function(){
+		var a=arr.value.split(',');
+		var sum=0;
+		for(var i=0;i<a.length;i++){
+			sum+=parseInt(a[i]);
+		}
+		sumText.innerText=sum;
+	}
+}
+	//用到正则表达式，当出现不是数字和逗号就替换掉
+	//原项目没有/g，当用户按住键盘会出现多个字符，此时就没有替换掉
+	//加了/g表示全局匹配，只要不是数字和字符都替换
+	//value是字符串，需要用parseInt()或Number()转为数字
+</script>
+</body>
+</html>
