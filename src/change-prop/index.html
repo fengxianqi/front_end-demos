@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>change-prop</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	div{
+		font:12px/1.5 Tahoma;
+		margin: 10px auto;
+		text-align: center;
+	}
+		label{
+			display: block;
+			margin: 5px auto;
+		}
+		#box{
+			width: 160px;
+			height: 160px;
+			color: #fff;
+			background: #000;
+		}
+		button{
+			margin-right: 10px;
+		}
+	</style>
+</head>
+<body>
+<div>
+	<label>属性名：<input type="text" id="prop-name" value="background"></label>
+	<label>属性值：<input type="text" id="prop-val" value="blue"></label>
+	<label><button>确定</button><button>重置</button></label>
+	<div id="box">在上方输入框输入"属性名"及"属性值"，点击确定按钮查看效果。</div>
+	<script type="text/javascript">
+	function changeProp(ele,name,val){
+		ele.style[name] = val;
+	}
+		window.onload=function() {
+			var btn=document.getElementsByTagName("button");
+			var pName=document.getElementById('prop-name');
+			var pVal=document.getElementById('prop-val');
+			var box=document.getElementById('box');
+			btn[0].onclick=function(){
+					changeProp(box,pName.value,pVal.value);
+			}
+			btn[1].onclick=function(){
+				box.removeAttribute('style');
+			}
+		}
+
+		//dom.style['xxx']的用法
+		//DOM.removeAttribute()去除属性
+	</script>
+</div>
+</body>
+</html>
