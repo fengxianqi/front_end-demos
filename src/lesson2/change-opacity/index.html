@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>change-opacity</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		ul,li{
+			margin:0;
+			padding: 0;
+			list-style: none;
+		}
+		ul{
+			width: 700px;
+			margin:10px auto;
+			border:1px solid #333;
+			padding:0 0 10px 10px;
+			overflow: hidden;
+		}
+		ul li{
+			float: left;
+			width:128px;
+			height: 128px;
+			border: 1px solid #ccc;
+			margin:10px 10px 0 0;
+		}
+		ul li img{
+			opacity: 0.3;
+			filter: alpha(opacity=30);
+			cursor: crosshair;
+		}
+		ul li img:hover{
+			opacity: 1;
+			filter: alpha(opacity=100);
+		}
+	</style>
+</head>
+<body>
+	<ul>
+		<li><img src="images/1.jpg"></li>
+		<li><img src="images/2.jpg"></li>
+		<li><img src="images/3.jpg"></li>
+		<li><img src="images/4.jpg"></li>
+		<li><img src="images/5.jpg"></li>
+		<li><img src="images/6.jpg"></li>
+		<li><img src="images/7.jpg"></li>
+		<li><img src="images/8.jpg"></li>
+		<li><img src="images/9.jpg"></li>
+		<li><img src="images/10.jpg"></li>
+	</ul>
+</body>
+</html>
