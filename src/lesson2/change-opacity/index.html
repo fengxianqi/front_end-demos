@@ -28,7 +28,7 @@
 			filter: alpha(opacity=30);
 			cursor: crosshair;
 		}
-		ul li img:hover{
+		ul li.hover img{
 			opacity: 1;
 			filter: alpha(opacity=100);
 		}
@@ -47,5 +47,18 @@
 		<li><img src="images/9.jpg"></li>
 		<li><img src="images/10.jpg"></li>
 	</ul>
+	<script type="text/javascript">
+		window.onload=function(){
+			var lis=document.getElementsByTagName('li');
+			for(var i=0;i<lis.length;i++){
+				lis[i].onmouseover=function(){
+					this.className='hover';
+				}
+				lis[i].onmouseout=function(){
+					this.className='';
+				}
+			}
+		}
+	</script>
 </body>
 </html>
