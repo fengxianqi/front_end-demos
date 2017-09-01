@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>简易选项卡</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	body{
+		font:12px/1.5 Tahoma;
+	}
+	ul,li{
+		margin: 0;
+		padding: 0;
+	}
+		.container{
+			margin:10px auto;
+			width: 450px;
+
+		}
+		#tab{
+			border:1px solid #000;
+			overflow: hidden;
+			background: #000;
+		}
+		#tab li{
+			float: left;
+			list-style: none;
+			height: 30px;
+			line-height: 30px;
+			padding:0 20px;
+			color:#fff;
+			cursor: pointer;
+		}
+		#tab li.current{
+			background: #ccc;
+			color: #000;
+		}
+		.content{
+			border:1px solid #000;
+			border-top-width: 0;
+		}
+		.content ul{
+			line-height:25px;
+			display:none;
+			margin:0 30px;
+			padding:10px 0;
+		}
+	</style>
+</head>
+<body>
+<div class="container">
+	<ul id="tab">
+		<li class="current">第一课</li>
+		<li>第二课</li>
+		<li>第三课</li>
+	</ul>
+	<div class="content">
+		<ul style="display: block;">
+			<li>网页特效原理分析</li>
+            <li>响应用户操作</li>
+            <li>提示框效果</li>
+            <li>事件驱动</li>
+            <li>元素属性操作</li>
+            <li>动手编写第一个JS特效</li>
+            <li>引入函数</li>
+            <li>网页换肤效果</li>
+            <li>展开/收缩播放列表效果</li>
+		</ul>
+		<ul>
+            <li>改变网页背景颜色</li>
+            <li>函数传参</li>
+            <li>高重用性函数的编写</li>
+            <li>126邮箱全选效果</li>
+            <li>循环及遍历操作</li>
+            <li>调试器的简单使用</li>
+            <li>典型循环的构成</li>
+            <li>for循环配合if判断</li>
+            <li>className的使用</li>
+            <li>innerHTML的使用</li>
+            <li>戛纳印象效果</li>
+            <li>数组</li>
+            <li>字符串连接</li>
+        </ul>
+        <ul>
+            <li>JavaScript组成：ECMAScript、DOM、BOM，JavaScript兼容性来源</li>
+            <li>JavaScript出现的位置、优缺点</li>
+            <li>变量、类型、typeof、数据类型转换、变量作用域</li>
+            <li>闭包：什么是闭包、简单应用、闭包缺点</li>
+            <li>运算符：算术、赋值、关系、逻辑、其他运算符</li>
+            <li>程序流程控制：判断、循环、跳出</li>
+            <li>命名规范：命名规范及必要性、匈牙利命名法</li>
+            <li>函数详解：函数构成、调用、事件、传参数、可变参、返回值</li>
+            <li>定时器的使用：setInterval、setTimeout</li>
+            <li>定时器应用：站长站导航效果</li>
+            <li>定时器应用：自动播放的选项卡</li>
+            <li>定时器应用：数码时钟</li>
+            <li>程序调试方法</li>
+        </ul>
+	</div>
+</div>
+<script type="text/javascript">
+window.onload=function (){
+	var tabs=document.getElementById('tab').getElementsByTagName('li');
+	var uls=document.getElementsByClassName('content')[0].getElementsByTagName('ul');
+	for(var i=0;i<tabs.length;i++){
+		tabs[i].index=i;
+		tabs[i].onmouseover=function (){
+			for(var j=0;j<tabs.length;j++){
+				tabs[j].className='';
+				uls[j].style.display='none';
+			} 
+				this.className='current';
+				uls[this.index].style.display='block';
+		}
+	}
+}
+
+
+	//overflow可以清除浮动
+</script>
+</body>
+</html>
