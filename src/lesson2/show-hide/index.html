@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 单一按钮显示/隐藏一播放列表收缩展开</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			font:12px/1.5 Tahoma;
+		}
+		div,ul,li,p,h2{
+			margin: 0;
+			padding: 0;
+		}
+		.outer{
+			margin:10px auto;
+			width: 200px;
+			border: 1px solid #aaa;
+		}	
+		.outer h2{
+			color: #57646E;
+			font-weight: 400;
+			height: 30px;
+			line-height: 30px;
+			padding-left: 10px;
+			background: #ced3d7 url(img/ico.gif) no-repeat 180px -15px;
+			font-size: 14px;
+			border: 1px solid;
+			border-color: #fff #e9edf2;
+			cursor: pointer;
+		}
+		.outer h2.open{
+			background-position: 180px 15px;
+		}
+		.outer ul{
+			border-top: 1px solid #DEE3E6;
+		}
+		.outer ul li{
+			height: 25px;
+			line-height: 25px;
+			display: block;
+		}
+		.outer a{
+			display: block;
+			background: #e9edf2;
+			color: #6b7980;
+			padding-left: 10px;
+			text-decoration: none;
+		}
+		.outer a:hover{
+			background: #fff;
+		}
+	</style>
+</head>
+<body>
+<div class="outer">
+	<h2>播放列表...</h2>
+	<ul style="display: none;">
+        <li><a href="javascript:;">玩家之徒 - 蔡依林</a></li>
+        <li><a href="javascript:;">原谅我就是这样的女生 - 戴佩妮</a></li>
+        <li><a href="javascript:;">猜不透 - 丁当</a></li>
+        <li><a href="javascript:;">自导自演 - 周杰伦</a></li>
+        <li><a href="javascript:;">浪漫窝 - 弦子</a></li>
+        <li><a href="javascript:;">流年 - 王菲</a></li>
+	</ul>
+</div>
+<script>
+	window.onload=function (){
+		var btn =document.getElementsByTagName('h2')[0];
+		var box=document.getElementsByTagName('ul')[0];
+
+		btn.onclick=function (){
+			var style=box.style;
+			style.display=style.display==='none'?'block':'none';
+			this.className=style.display==='none'?'open':'';
+
+		}
+	}
+</script>
+</body>
+</html>
