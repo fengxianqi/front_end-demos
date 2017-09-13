@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>名车车标展示-鼠标移过显示车标</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			font:12px/1.5 Tahoma;
+		}
+		body,div,h2,ul,li{margin:0;padding:0;}
+		.outer{
+			width: 560px;
+			border: 1px solid #333;
+			margin:10px auto;
+			padding: 0 0 10px 10px;
+
+		}
+		.outer h2{
+			height: 30px;
+			line-height: 30px;
+			text-align:center;
+			margin-top: 10px;
+		}
+		.outer ul:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+		.outer ul li{
+			display: inline-block;
+			margin: 10px 10px 0 0 ;
+			float: left;
+			border:1px solid #333;
+			position: relative;
+		}
+		.outer ul li img{
+			display: none;
+			position: absolute;
+			top:-14px;
+			left:-14px;
+			border:2px solid #999;
+			cursor:crosshair;
+		}
+		.outer ul li a{
+			width: 80px;
+			height: 80px;
+			color:#666;
+			display:block;
+			background:#f0f0f0;
+			text-decoration:none;
+			padding:10px;
+		}
+		.outer ul li a strong{display:block;}
+.zindex{z-index:1;}
+
+	</style>
+</head>
+<body>
+<div class="outer">
+	<h2>名车车标展示-鼠标移过显示车标</h2>
+    <ul>
+        <li>
+            <a href="javascript:;" title="BMW 宝马汽车"><strong>BMW</strong>宝马汽车</a>
+            <img src="img/1.jpg" alt="BMW 宝马汽车" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Alfa Romeo 阿尔法-罗米欧"><strong>Alfa Romeo</strong> 阿尔法-罗米欧</a>
+            <img src="img/2.jpg" alt="Alfa Romeo 阿尔法-罗米欧" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Skoda 斯柯达"><strong>Skoda</strong> 斯柯达</a>
+            <img src="img/3.jpg" alt="Skoda 斯柯达" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Volkswagen 大众汽车"><strong>Volkswagen</strong> 大众汽车</a>
+            <img src="img/4.jpg" alt="Volkswagen 大众汽车" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Saab 萨布牌轿"><strong>Saab</strong> 萨布牌轿车</a>
+            <img src="img/5.jpg" alt="Saab 萨布牌轿" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Lamborghini 兰博基尼"><strong>Lamborghini</strong> 兰博基尼</a>
+            <img src="img/6.jpg" alt="Lamborghini 兰博基尼" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Porsche 保时捷"><strong>Porsche</strong> 保时捷</a>
+            <img src="img/7.jpg" alt="Porsche 保时捷" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Peugeot 标致"><strong>Peugeot</strong> 标致</a>
+            <img src="img/8.jpg" alt="Peugeot 标致" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Mercedes 梅赛德斯 奔驰"><strong>Mercedes1</strong> 梅赛德斯 奔驰</a>
+            <img src="img/9.jpg" alt="Mercedes1 梅赛德斯 奔驰" />
+        </li>
+        <li>
+            <a href="javascript:;" title="Buick 别克汽车"><strong>Buick</strong> 别克汽车</a>
+            <img src="img/10.jpg" alt="Buick 别克汽车" />
+        </li>
+    </ul>
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var oLi = document.getElementsByTagName("li");
+		var oA=document.getElementsByTagName('a');
+		var oImg=document.getElementsByTagName('img');
+		for(var i=0;i<oA.length;i++){
+		oA[i].index = oImg[i].index = i;
+		oA[i].onmouseover = function() {
+			oLi[this.index].className = "zindex";
+			oImg[this.index].style.display = "block"
+		};
+		oA[i].onmouseout = function ()
+		{
+			oLi[this.index].className = "";
+			oImg[this.index].style.display = "none"
+		};
+		oImg[i].onmouseover = function()
+		{
+			oLi[this.index].className = "zindex";
+			this.style.display = "block"	
+		};
+		oImg[i].onmouseout = function()
+		{
+			oLi[this.index].className = "";
+			this.style.display = "none"	
+		}	
+		}
+	}
+	//当不能用overflow：hidden清除浮动
+	//可用 ul:after{content:".";display:block;height:0;clear:both;visibility:hidden;}
+</script>
+</body>
+</html>
