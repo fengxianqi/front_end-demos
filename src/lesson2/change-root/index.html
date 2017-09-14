@@ -8,6 +8,10 @@
 			font:12px/1.5 Tahoma;
 			background: #000;
 		}
+		body,ul,li{
+			margin: 0;
+			padding: 0;
+		}
 		.outer{
 			width: 212px;
 			border: 1px solid #fff;
@@ -15,12 +19,66 @@
 			border-radius: 5px;
 			margin: 10px auto;
 			padding: 0 0 3px 3px;
+			overflow: hidden;
+		}
+		.outer li{
+			width: 50px;
+			height: 50px;
+			float: left;
+			display: block;
+			margin:3px 3px 0 0;
+		}
+		.outer li.first{
+			width: 156px;
+			height: 156px;
+			position: relative;
+		}
+		.outer li.first div{
+			width: 156px;
+			height: 156px;
+			position: absolute;
+			left: 0;
+			top:0;
+			opacity: 0.5;
+			filter: alpha(opacity=50);
+			background: #fff  url('img/loading.gif') 50% 50% no-repeat;
+			display: none;
 		}
 	</style>
 </head>
 <body>
-<div class="outer">
-	
-</div>
+<ul class="outer">
+
+    <li class="first"><img src="img/big_1.jpg"><div></div></li>
+    <li><a href="javascript:;"><img src="img/small_1.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_2.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_3.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_4.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_5.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_6.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_7.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_8.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_9.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_10.jpg"></a></li>
+    <li><a href="javascript:;"><img src="img/small_11.jpg"></a></li>
+</ul>
+<script type="text/javascript">
+	window.onload=function(){
+		var oimg=document.getElementsByTagName('img');
+		var odiv=document.getElementsByTagName('div')[0];
+		for(var i=1;i<oimg.length;i++){
+			oimg[i].onmouseover=function(){
+				var img=new Image();
+				img.src=oimg[0].src=this.src.replace(/small/,'big');
+				odiv.style.display='block';
+				img.complete?odiv.style.display='none':(oimg[0].onload = function() {odiv.style.display = "none"});
+
+			}
+		}
+	}
+	//使用Image对象
+	//img.complete判断图片是否加载完成
+	//img.onload也可以
+</script>
 </body>
 </html>
