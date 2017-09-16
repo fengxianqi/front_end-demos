@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>复选框（checkbox）全选/全不选/返选</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			font:12px/1.5 Tahoma;
+		}
+		body,dl,dd,dt{
+			margin:0;
+			padding: 0;
+		}
+		dl{
+			width: 120px;
+			border:1px solid #000;
+			border-radius: 5px;
+			margin:10px auto;
+			background: #fafafa;
+			padding: 0 5px;
+		}
+		dt{
+			border-bottom: 1px solid #000;
+			padding: 5px 0;
+		}
+		dt,dd{
+			line-height: 30px;
+		}
+		a{
+			margin-left: 10px;
+		}
+	</style>
+</head>
+<body>
+<dl>
+	<dt><label><input type="checkbox" id="checkAll"><span>全选</span></label><a href="javascript:;">反选</a></dt>
+	<dd><label><input type="checkbox" name="item">选项一</label></dd>
+	<dd><label><input type="checkbox" name="item">选项二</label></dd>
+	<dd><label><input type="checkbox" name="item">选项三</label></dd>
+	<dd><label><input type="checkbox" name="item">选项四</label></dd>
+	<dd><label><input type="checkbox" name="item">选项五</label></dd>
+	<dd><label><input type="checkbox" name="item">选项六</label></dd>
+	<dd><label><input type="checkbox" name="item">选项七</label></dd>
+	<dd><label><input type="checkbox" name="item">选项八</label></dd>
+	<dd><label><input type="checkbox" name="item">选项九</label></dd>
+	<dd><label><input type="checkbox" name="item">选项十</label></dd>
+</dl>
+<script type="text/javascript">
+	window.onload=function(){
+		var oA=document.getElementsByTagName('a')[0];
+		var oIn=document.getElementsByTagName('input');
+		var oSpan=document.getElementsByTagName('span')[0];
+
+		var isCheckAll=function(){
+			for(var i=1,n=0;i<oIn.length;i++){
+				oIn[i].checked&&n++;
+			}
+			oIn[0].checked=n==oIn.length-1;
+			if(oIn[0].checked){
+				oSpan.innerHTML='全不选';
+			}
+			else{
+				oSpan.innerHTML='全选';
+			}
+		}
+
+		oIn[0].onclick=function(){
+			for(var i=1;i<oIn.length;i++){
+				oIn[i].checked=this.checked;
+			}
+			isCheckAll();
+		}
+
+		oA.onclick=function(){
+			for(var i=1;i<oIn.length;i++){
+				oIn[i].checked=!oIn[i].checked;
+			}
+			isCheckAll();
+		}
+
+		for(var i=1;i<oIn.length;i++){
+			//oIn[i].index=i;
+			oIn[i].onclick=function(){
+				isCheckAll();
+			}
+			
+		}
+
+	}
+
+
+</script>
+</body>
+</html>
