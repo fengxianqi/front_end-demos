@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>输入两个数字，比较大小</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			font:12px/1.5 Tahoma;
+			text-align: center;
+		}
+		input[type=text]{
+			background: #fafafa;
+			border:1px solid #000;
+			width: 50px;
+			margin:0 10px;
+			padding: 3px;
+		}
+		div{
+			width: 400px;
+
+		}
+		label{
+			color: #f00;
+			font-weight: bold;
+			margin-left: 10px;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+
+	<input type="text" name="">
+	vs
+	<input type="text" name="">
+	<input type="button" name="" value="最大的数是>>">
+	<label>?</label>
+	<script type="text/javascript">
+		window.onload=function(){
+			var oIn=document.getElementsByTagName('input');
+			var oLab=document.getElementsByTagName('label')[0];
+			for(var i=0;i<oIn.length-1;i++){
+				oIn[i].onkeyup=function(){
+					this.value=this.value.replace(/[^\d]/,'');
+				}
+			}
+			oIn[2].onclick=function(){
+				(oIn[0].value==''||oIn[1].value=='')?alert('请输入数字！'):(oLab.innerHTML=Math.max(oIn[0].value,oIn[1].value));
+			}
+		}
+	</script>
+</body>
+</html>
