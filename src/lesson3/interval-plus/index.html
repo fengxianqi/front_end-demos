@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>页面加载后累加，自加1</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body{
+			text-align: center;
+			font:bold 30px/1.5 arial;
+		}
+	</style>
+</head>
+<body>
+<script type="text/javascript">
+	window.onload=function(){
+		var bd=document.body;
+		var i=0;
+		setInterval(updateNum,1000);
+		updateNum();
+		function updateNum(){
+			bd.innerHTML=++i;
+		}
+	}
+</script>
+</body>
+</html>
