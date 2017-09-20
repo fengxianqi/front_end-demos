@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>网页简易时钟</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		#clock{
+			width: 300px;
+			background: #1a1a1a;
+			margin:10px auto;
+			text-align: center;
+			padding: 20px 0;
+			color: #fff;
+			font:14px/1.5 Arial;
+		}
+		#clock span{
+			display: inline-block;
+			background: #fbfbfb;
+			padding: 0 14px;
+			color:#000;
+			margin:0 10px;
+			border:2px solid #b4b4b4;
+		}
+	</style>
+</head>
+<body>
+<div id="clock">
+	<span></span>时
+	<span></span>分
+	<span></span>秒
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var clock=document.getElementById('clock');
+		var spans=clock.getElementsByTagName('span');
+		setInterval(setTime,1000);
+		setTime();
+		function setTime(){
+			var date=new Date();
+			var aDate = [date.getHours(), date.getMinutes(), date.getSeconds()];
+			for (var i in aDate) spans[i].innerHTML = format(aDate[i]);
+
+		}
+	function format(d){
+		return d.toString().replace(/^(\d)$/, "0$1");
+		//$1表示第一个分组，函数的作用是补零	
+	}
+	}
+</script>
+</body>
+</html>
