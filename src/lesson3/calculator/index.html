@@ -147,15 +147,80 @@
 </div>
 <script type="text/javascript">
 	window.onload=function(){
-		 // var clac=document.getElementsByClassName('calculator')[0];
-		 // var oIn=document.getElementByClassName('f-text')[0];
-		 // var 
+		var reg=/[\+\-\*\/\%]/;
+		  var clac=document.getElementsByClassName('calculator')[0];
+		  var oIn=clac.getElementsByClassName('f-text')[0];
+		  var formula=document.getElementById('formula');
+		  var oA=clac.getElementsByTagName('a');
+		  for(var i=0;i<oA.length;i++){
+		  		oA[i].onclick=function(){
+		  			switch(this.innerHTML){
+		  				case 'c':
+		  				formula.value='';
+		  				oIn.value=0;
+		  				break;
+		  				case '+':
+		  					count('+');
+		  				break;
+		  				case '-':
+	  					count('-');
+	  					break;
+	  					case '×':
+	  					count('*');
+	  					break;
+	  					case '÷':
+	  					count('/');
+	  					break;
+	  					case '%':
+	  					count('%');
+	  					break;
+	  					case '=':
+					  		if(formula.value==''){
+					  			if(!reg.test(oIn.value)) formula.value=oIn.value;
+					  		}else{
+					  			if(reg.test(oIn.value)){//输入是符号
+					  				oIn.value=eval(formula.value+'0');
+					  			}else{
+					  				if(!/\d[\+\-\*\/\%]\d/.test(formula.value)){//不是1+1,可能是1
+					  					if(!reg.test(formula.value)){
+					  						formula.value=oIn.value;
+					  					}else{
+					  						formula.value=formula.value+oIn.value;
+						  					oIn.value=eval(formula.value);
+					  					}
+
+					  				}
+					  			}
+					  		}
+	  					 break;
+		  				default:
+		  					if(oIn.value.length>9) return;
+		  					(oIn.value=='0'||reg.test(oIn.value))?oIn.value=this.innerHTML:oIn.value+=this.innerHTML;
+		  				break;
+		  			}
+		  		}
+
+		  }
+		  function count(a){
+		  	if(reg.test(formula.value)&&!/\d[\+\-\*\/\%]\d/.test(formula.value)){//包含符号如：1+,但不是1+1
+					if(!reg.test(oIn.value)){//不是符号
+		  				formula.value=eval(formula.value+oIn.value)+a;
+		  				oIn.value=a;
+		  			}else{
+		  				formula.value=formula.value.substring(0,formula.value.length-1)+a;
+		  				oIn.value=a;
+		  			}
+		  	}else{//不包含符号或为空，如：1
+					formula.value=oIn.value+a;
+		  			oIn.value=a;
+		  	}
+		  }
 
 
 
 
 
-
+}
 
 	//css3渐变
 	//http://www.runoob.com/css3/css3-gradients.html
