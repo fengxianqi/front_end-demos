@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>setTimeout应用</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+		body,div,ul,li,p{margin:0;padding:0;}
+		body{font:12px/1.5 Arial;}
+		ul{list-style-type:none;}
+		#nav,#nav ul,#nav ul li,#nav ul li a:hover,#nav .subnav,#nav .subnav p,#nav .subnav p span,#nav .subnav .arrow{
+			background:url(img/nav_bg.png) no-repeat;
+		}
+		#nav{
+			position:relative;
+			width:910px;
+			background-position:0 -36px;
+			margin:10px auto;
+		}
+		#nav ul{
+			height:36px;
+			line-height:36px;
+			margin-left:10px;
+			padding-right:10px;
+			overflow:hidden;
+			background-position:right -72px;
+		}
+		#nav ul li{
+			float:left;
+			width:110px;
+			margin-left:-2px;
+			background-position:0 -108px;
+		}
+		#nav ul li a{
+			font-size:14px;
+			color:#fff;
+			width:102px;
+			display:block;
+			text-align:center;
+			text-decoration:none;
+			margin:0 2px 0 4px;
+		}
+		#nav ul li a:hover{
+			font-weight:700;
+			background-position:-3px -144px;
+		}
+		#nav .subnav{
+			display:none;
+			position:absolute;
+			top:41px;
+			width:auto!important;
+			min-width:110px;
+			height:27px;
+			line-height:27px;
+			white-space:nowrap;
+			background-position:0 -180px;
+		}
+		#nav .subnav p{
+			margin-left:10px;
+			padding-right:10px;
+			background-position:right -234px;
+		}
+		#nav .subnav p span{
+			display:block;
+			color:#235e99;
+			background-repeat:repeat-x;
+			background-position:0 -207px;
+		}
+		#nav .subnav p a{
+			font-size:12px;
+			display:inline;
+			color:#235e99;
+			text-decoration:none;
+			margin:0 5px;
+			padding:0 2px;
+		}
+		#nav .subnav p a:hover{
+			font-weight:400;
+			background-image:none;
+			border-bottom:2px solid;
+		}
+		#nav .subnav .arrow{
+			position:absolute;top:-4px;
+			display:block;
+			width:11px;
+			height:5px;
+			background-position:0 -261px;
+		}
+
+	</style>
+</head>
+<body>
+<div id="nav">
+    <ul>
+        <li><a href="javascript:;">站长之家</a></li>
+        <li>
+            <a href="javascript:;">行业资讯</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">业界动态</a>|
+                        <a href="javascript:;">收购融资</a>|
+                        <a href="javascript:;">门户动态</a>|
+                        <a href="javascript:;">搜索引擎</a>|
+                        <a href="javascript:;">网络游戏</a>|
+                        <a href="javascript:;">电子商务</a>|
+                        <a href="javascript:;">广告传媒</a>|
+                        <a href="javascript:;">厂商开发</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">站长在线</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">站长报道</a>|
+                        <a href="javascript:;">好站推荐</a>|
+                        <a href="javascript:;">站长聚会</a>|
+                        <a href="javascript:;">站长访谈</a>|
+                        <a href="javascript:;">站长茶馆</a>|
+                        <a href="javascript:;">网站排行</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">网站运营</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">建站经验</a>|
+                        <a href="javascript:;">策划盈利</a>|
+                        <a href="javascript:;">搜索优化</a>|
+                        <a href="javascript:;">网站推广</a>|
+                        <a href="javascript:;">免费资源</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">设计在线</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">酷站推荐</a>|
+                        <a href="javascript:;">网页设计</a>|
+                        <a href="javascript:;">WEB标准</a>|
+                        <a href="javascript:;">视频处理</a>|
+                        <a href="javascript:;">设计活动</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">网络编程</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">Asp编程</a>|
+                        <a href="javascript:;">Php编程</a>|
+                        <a href="javascript:;">.Net编程</a>|
+                        <a href="javascript:;">Xml编程</a>|
+                        <a href="javascript:;">Access</a>|
+                        <a href="javascript:;">Mssql</a>|
+                        <a href="javascript:;">Mysql</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">联盟资讯</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">联盟动态</a>|
+                        <a href="javascript:;">联盟介绍</a>|
+                        <a href="javascript:;">联盟点评</a>|
+                        <a href="javascript:;">网赚技巧</a>
+                    </span>
+                </p>
+            </div>
+        </li>
+        <li>
+            <a href="javascript:;">服务器</a>
+            <div class="subnav">
+                <em class="arrow"></em>
+                <p>        	
+                    <span>
+                        <a href="javascript:;">Web服务器</a>|
+                        <a href="javascript:;">Ftp服务器</a>|
+                        <a href="javascript:;">Mail服务器</a>|
+                        <a href="javascript:;">Dns服务器</a>|
+                        <a href="javascript:;">Win服务器</a>|
+                        <a href="javascript:;">Linux服务器</a>|
+                        <a href="javascript:;">安全防护</a>|
+                        <a href="javascript:;">虚拟主机</a>
+                    </span>
+                </p>
+            </div>
+        </li>        
+    </ul>    
+</div>
+<script type="text/javascript">
+var get = {
+	byId: function(id) {
+		return document.getElementById(id)
+	},
+	//用正则取class
+	byClass: function(sClass, oParent) {
+		var aClass = [];
+		var reClass = new RegExp("(^| )" + sClass + "( |$)");
+		var aElem = this.byTagName("*", oParent);
+		for (var i = 0; i < aElem.length; i++) reClass.test(aElem[i].className) && aClass.push(aElem[i]);
+		return aClass
+	},
+	byTagName: function(elem, obj) {
+		return (obj || document).getElementsByTagName(elem)
+	}
+};
+window.onload = function ()
+{
+	var oNav = get.byId("nav");
+	var aLi = get.byTagName("li", oNav);
+	var aSubNav = get.byClass("subnav", oNav);
+	var oSubNav = oEm = timer = null;
+	var i = 0;
+	
+	for (i = 1; i < aLi.length; i++)
+	{
+		aLi[i].onmouseover = function ()
+		{
+			//隐藏所有子菜单
+			for (i = 0; i < aSubNav.length; i++)aSubNav[i].style.display = "none";
+			
+			//获取该项下的子菜单
+			oSubNav = get.byClass("subnav", this)[0];
+			
+			//获取该项下的指示箭头
+			oEm = get.byTagName("em", this)[0];
+			
+			//显示该项下的子菜单
+			oSubNav.style.display = "block";
+			
+			//判断显示区域
+			oNav.offsetWidth - this.offsetLeft > oSubNav.offsetWidth ? 
+			
+			//如果在显示范围居左显示
+			oSubNav.style.left = this.offsetLeft + "px" :
+			
+			//超出显示范围居右显示
+			oSubNav.style.right = 0;
+			
+			//计算指标箭头显示位置
+			oEm.style.left = this.offsetLeft - oSubNav.offsetLeft + 50 + "px";
+			clearTimeout(timer);
+			
+			//阻止事件冒泡
+			oSubNav.onmouseover = function (event)
+			{
+				(event || window.event).cancelBubble = true;
+				clearTimeout(timer)
+			}
+		};
+		
+		aLi[i].onmouseout = function ()
+		{
+			timer = setTimeout(function () {
+				oSubNav.style.display = "none"
+			},300)	
+		}
+	}
+};
+</script>
+
+</body>
+</html>
