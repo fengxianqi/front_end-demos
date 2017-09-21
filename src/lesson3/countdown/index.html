@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>倒计时（100秒）</title>
+	<meta charset="utf-8">
+	<style type="text/css">
+				#clock{
+			width: 300px;
+			background: #1a1a1a;
+			margin:10px auto;
+			text-align: center;
+			padding: 20px 0;
+			color: #fff;
+			font:14px/1.5 Arial;
+		}
+		#clock span{
+			display: inline-block;
+			background: #fbfbfb;
+			padding: 0 14px;
+			color:#000;
+			margin:0 10px;
+			border:2px solid #b4b4b4;
+		}
+		input{
+			width: 80%;
+			margin: 10px auto 0;
+			background: url('img/btn-1.png') no-repeat;
+			color:#fff;
+			font:bold 14px Arial;
+			border:0;
+			width:283px;
+			height:50px;
+			cursor:pointer;
+		}
+		input.cancel{
+			background-position:0 -50px;
+		}
+
+	</style>
+</head>
+<body>
+<div id="clock">
+	<span>01</span>分
+	<span>40</span>秒
+	<input type="button" name="" >
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var spans=document.getElementsByTagName('span');
+		var btn=document.getElementsByTagName('input')[0];
+		var timer=null;
+		btn.onclick=function(){
+			this.className==''?timer=setInterval(updateTime,1000):(clearInterval(timer));
+			this.className = this.className == '' ? "cancel" : '';
+		}
+		function format(a)
+		{
+			return a.toString().replace(/^(\d)$/,'0$1')
+		}
+
+		function updateTime(){
+			var thisTime=parseInt(spans[0].innerHTML.replace(/^0/,''))*60+parseInt(spans[1].innerHTML.replace(/^0/,''));
+			if(thisTime<=0){
+				clearInterval(timer);
+				return;
+			}
+			thisTime--;
+			spans[0].innerHTML=format(parseInt(thisTime/60));
+			spans[1].innerHTML=format(parseInt(thisTime%60))
+		}
+	}
+</script>
+</body>
+</html>
