@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>css函数一设置/读取对象的属性</title>
+	<style type="text/css">
+		.box{
+
+			width: 400px;
+			height: 200px;
+			margin:10px auto;
+			border:1px solid #f60;
+			background: #fef4eb;
+		}
+	</style>
+</head>
+<body>
+<div class="box">
+	<button>Get style</button>
+	<button>Set style</button>
+	<button>Default style</button>
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var oBox=document.getElementsByTagName('div')[0];
+		var btns=document.getElementsByTagName('button');
+		btns[0].onclick=function(){
+			alert("width: " + css(oBox, "width") + "\nheight: " + css(oBox, "height") + "\nbackground-color: " + css(oBox, "backgroundColor"));
+		}
+		btns[1].onclick=function(){
+					//两个参数, 第二个参数为对象, 属性批量设置
+		css(oBox, {width: "330px", height: "100px", borderColor: "#0084ff", backgroundColor: "#eff8ff"});
+		//三个参数, 属性单一设置
+		for (i = 0; i < btns.length; i++) css(btns[i], "backgroundColor", "#0084ff")
+
+		}
+
+		btns[2].onclick=function(){
+					//两个参数, 第二个参数为对象, 属性批量设置
+		css(oBox, {width: "400px", height: "200px", borderColor: "#f60", backgroundColor: "#fef4eb"});
+		//三个参数, 属性单一设置
+		for (i = 0; i < btns.length; i++) css(btns[i], "backgroundColor", "#f60")	
+		}
+
+	alert(getComputedStyle(oBox,null)['width']);
+	alert(oBox.currentStyle)
+	}
+
+
+
+
+	function css(obj, attr, value)
+{
+	switch (arguments.length)
+	{
+		case 2:
+			if(typeof arguments[1] == "object")
+			{	//两个参数, 如果第二个参数是对象, 批量设置属性
+				for (var i in attr)obj.style[i] = attr[i]
+			}
+			else
+			{	//两个参数, 如果第二个参数是字符串, 读取属性值
+				return obj.currentStyle ? obj.currentStyle[attr] : getComputedStyle(obj, null)[attr]
+			}
+			break;
+		case 3:
+			//三个参数, 单一设置属性
+			obj.style[attr] = value;
+			break;
+		default:
+			alert("参数错误！")
+	}
+}
+
+</script>
+</body>
+</html>
