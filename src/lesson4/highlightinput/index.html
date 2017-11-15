@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>当前输入框高亮显示</title>
+	<meta charset="utf-8">
+		<style type="text/css">
+		body{
+			margin:0;
+			padding:0;
+		}
+		#box{
+
+			width: 400px;
+			height: 200px;
+			margin:10px auto;
+			border:2px solid #f60;
+			background: #fef4eb;
+			text-align: center;
+		}
+		#box h2{
+			width: 100%;
+			padding:2px 4px;
+			font-size: 20px;
+			margin:0;
+			border-bottom:1px solid #f60;
+			box-sizing: border-box;
+			text-align: left;
+		}
+		#box p{
+			width: 80%;
+			text-align: right;
+		}
+
+		#box p label{
+			text-align:  right;
+			width: 100px;
+		}
+		input[type=text]{
+						width: 200px;
+			height: 30px;
+			border:1px solid #888;
+			line-height: 30px;
+			padding-left: 5px;
+			border-radius: 5px;
+		}
+		.f-text{
+			        -webkit-box-shadow: 0 0 0px 1000px fefefe inset;
+			background: #fefefe;
+		}
+		.f-text-focus{
+			background: #ef7fd0;
+			-webkit-box-shadow: 0 0 0px 1000px fefefe inset;
+		}
+	</style>
+</head>
+<body>
+<div id="box">
+	<h2>用户登录</h2>
+	<div>
+		<p><label>用户名：</label><input class="f-text" type="text" name="username"></p>
+		<p><label>密码：</label><input class="f-text" type="text" name="password"></p>
+		<p><input type="button" name="submit" value="登录"></p>
+	</div>
+</div>
+<script type="text/javascript">
+	window.onload=function(){
+		var inputs=document.getElementsByTagName('input');
+		for(var i=0;i<inputs.length-1;i++){
+			inputs[i].onfocus=function(){
+				this.className='f-text-focus'
+			}
+			inputs[i].onblur=function(){
+				this.className='f-text';
+			}
+		}
+	}
+</script>
+</body>
+</html>
