@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>drag</title>
+    <style>
+      #drag_zoom{
+        width:400px;
+        height:250px;
+        margin: 100px auto;
+        border: 1px solid #000;
+        text-align: center;
+        line-height: 250px;
+      }
+    </style>
+    <script>
+      window.onload = function(){
+        let zoom = document.getElementById('drag_zoom');
+        zoom.addEventListener('dragenter',_=>{
+          zoom.innerHTML = '释放鼠标~~';
+        },false)
+        zoom.addEventListener('dragleave',_=>{
+          zoom.innerHTML = '请把文件拖到这里~~';
+        },false)
+        zoom.addEventListener('dragover',ev=>{
+          ev.preventDefault();
+        },false)
+        zoom.addEventListener('drop',ev=>{
+          console.log('这里作上传操作~~');
+          console.log(ev.dataTransfer.files);
+          zoom.innerHTML = '请把文件拖到这里~~';
+          ev.preventDefault();
+        },false)
+      }
+    </script>
+  </head>
+  <body>
+    <div id="drag_zoom">请把文件拖到这里~~</div>
+  </body>
+</html>
