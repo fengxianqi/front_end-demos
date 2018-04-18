@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>video</title>
+    <style>
+      video{
+        width: 800px;
+        height:500px;
+      }
+      #progress{
+        width: 100%;
+        height: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <video id="myVideo" src="http://adl.duoyi.com/sc111/csm/video/cg/csm_xc5.mp4" controls loop poster="http://d.hiphotos.baidu.com/zhidao/pic/item/c8177f3e6709c93d13b161359e3df8dcd00054b4.jpg">
+      你的浏览器不支持video
+    </video>
+    <div>
+      <input type="button" value="播放/暂停" id="play_pause"/>
+      <input type="button" value="前进15s" id="move_15s"/>
+      <input type="button" value="2倍速" id="speed_up"/>
+      <input type="button" value="降音量" id="noise_down"/>
+      <input type="button" value="静音" id="no_noise"/>
+      <input type="button" value="全屏" id="full_screen"/>
+    </div>
+    <div id="progress"></div>
+  </body>
+  <script>
+    var video = document.getElementById('myVideo');
+    var btn1 = document.getElementById('play_pause');
+    var btn2 = document.getElementById('speed_up');
+    var btn3 = document.getElementById('noise_down');
+    var btn4 = document.getElementById('no_noise');
+    var btn5 = document.getElementById('full_screen');
+    var btn6 = document.getElementById('move_15s');
+    var progress = document.getElementById('progress');
+    video.addEventListener('timeupdate',function(){
+      progress.style.background = 'linear-gradient(to right,#999 '+(video.currentTime/video.duration)*100+'%,#fff 0)';
+    },false)
+    btn1.onclick = function(){
+      video.paused?video.play():video.pause();
+    }
+    btn2.onclick = function(){
+      video.playbackRate = 2;
+    }
+    btn3.onclick=function(){
+      video.volume -= video.volume-.1>=0?.1:0;
+    }
+    btn4.onclick=function(){
+      video.muted = !video.muted;
+    }
+    btn5.onclick = function(){
+      video.webkitRequestFullScreen();
+    }
+    btn6.onclick = function(){
+      video.currentTime += 15;
+    }
+    document.onkeydown=function(ev){
+      if(ev.keyCode==81){
+          video.webkitExitFullScreen();
+      }
+    }
+  </script>
+</html>
