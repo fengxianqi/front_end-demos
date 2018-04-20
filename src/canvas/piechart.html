@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>饼状图</title>
+    <style media="screen">
+      body{
+        background-color: #000;
+      }
+      canvas{
+        background-color: #fff;
+      }
+    </style>
+    <script type="text/javascript">
+      window.onload = function(){
+        let my_canvas = document.getElementById('canvas');
+        let gd = my_canvas.getContext('2d');
+        function bing(gd,x,y,r,startArg,endArg,color){
+          gd.beginPath();
+          gd.moveTo(x,y);
+          gd.lineTo(x+Math.sin(trans(startArg))*r,y-Math.cos(trans(startArg))*r);
+          gd.arc(x,y,r,trans(startArg)-Math.PI/2,trans(endArg)-Math.PI/2,false);
+          gd.closePath();
+          gd.lineWidth = 1;
+          gd.stroke();
+          gd.fillStyle = color;
+          gd.fill();
+        }
+        function trans(x){
+          return Math.PI*x/180;
+        }
+        let data=[581, 273, 750, 501];
+        let colors=['#f00', '#f0f', '#0f0', '#00f'];
+        let sum = data.reduce((tem,item)=>tem+=item);
+        data = data.map(item=>360*(item/sum));
+        let beginArg = 0;
+        data.forEach((item,index)=>{
+          bing(gd,380,300,200,beginArg,beginArg+item,colors[index]);
+          beginArg +=item;
+        })
+      }
+    </script>
+  </head>
+  <body>
+    <canvas id="canvas" width="800" height="800">
+      你的浏览器不支持canvas，请升级到最新版本~~
+    </canvas>
+  </body>
+</html>
