@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>base</title>
+</head>
+<body>
+<input type="file" name="" id="file">
+<img src="" id="img">
+<script type="text/javascript">
+	// 预览图片，files to base64
+
+	// 方法一：利用URL.createObjectURL()
+	window.onload = function () {
+		let $img = document.getElementById('img')
+		file.onchange = function (e) {
+			console.log(e.target.files[0])
+			let file = e.target.files[0]
+			let fileUrl = window.URL.createObjectURL(file)
+			$img.src = fileUrl
+			img.onload = function () {
+				URL.revokeObjectURL(fileUrl)
+			}
+			// URL.revokeObjectURL(fileUrl)
+		}
+	}
+
+
+	// 方法二：利用FileReader.readAsDataURL()
+	// window.onload = function () {
+	// 	let $img = document.getElementById('img')
+	// 	file.onchange = function (e) {
+	// 		console.log(e.target.files[0])
+	// 		let file = e.target.files[0]
+	// 		const fr = new FileReader(file)
+	// 		fr.readAsDataURL(file)
+	// 		fr.onload = function () {
+	// 		 	$img.src = this.result
+	// 		}
+	// 		// URL.revokeObjectURL(this.result)
+	// 		// var fileUrl = URL.createObjectURL(file)
+	// 		// URL.revokeObjectURL(this.result)
+	// 	}
+	// }
+</script>
+</body>
+</html>
