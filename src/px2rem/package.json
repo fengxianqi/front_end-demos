@@ -1,0 +1,21 @@
+{
+  "name": "px2rem",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "front_end_demos"
+  },
+  "keywords": [
+    "px2rem"
+  ],
+  "author": "fengxianqi",
+  "license": "MIT",
+  "devDependencies": {
+    "webpack": "^4.16.1"
+  }
+}

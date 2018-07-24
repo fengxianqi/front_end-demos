@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>blob</title>
+</head>
+<body>
+	<canvas id="canvas" width="200" height="100">
+		您的浏览器不支持canvas！
+	</canvas>
+	<img id="img" src="" width="200" height="100" style="margin: 10px auto;">
+	<script type="text/javascript">
+		window.onload = function(){
+		    let canvas = document.getElementById('canvas')
+		    let ctx = canvas.getContext('2d')
+
+		    ctx.beginPath()
+		    ctx.rect(0, 0, 200, 100) //直接画矩形
+		    ctx.fillStyle = 'yellow'
+		    ctx.strokeStyle = '#f00'
+		    ctx.lineWidth = 5
+		    ctx.fill()               
+		    ctx.stroke()
+
+			let imgDom = document.getElementById('img')
+		    // canvas to dataURL
+		    let dataUrl = canvas.toDataURL('image/png')
+		    imgDom.src = dataUrl
+
+		    // dataUrl to canvas
+		    // let img = new Image()
+		    // img.src = dataUrl
+		    // img.onload = function () {
+		    // 	canvas.drawImage()
+		    // }
+
+		    // canvas to blob
+		    canvas.toBlob(function (blobObj) {
+		    	console.log(blobObj)
+		    })
+
+		    // blob to dataUrl
+		    // canvas.toBlob(function (blobObj) {
+		    // 	let imgSrc = window.URL.createObjectURL(blobObj)
+		    // 	img.src = imgSrc
+		    // })
+
+		    // download dataUrl img
+		    function downloadImg () {
+		    	let aLink = document.createElement('a')
+		    	aLink.download = 'fileName.png'
+		    	aLink.href = dataUrl
+		    	aLink.click()
+		    }
+		    
+
+		}
+		
+	</script>
+</body>
+</html>
