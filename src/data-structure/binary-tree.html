@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Binary Tree</title>
+</head>
+<body>
+<script type="text/javascript">
+	// 二叉树的节点结构
+	class Node {
+		constructor (key) {
+			this.key = key
+			this.left = null
+			this.right = null
+		}
+	}
+	// 二叉树
+	class BinaryTree {
+		// 根节点
+		constructor (root) {
+			this.root = root || null
+		}
+		insert (key) {
+			let newNode = new Node(key)
+			if (this.root === null) {
+				this.root = newNode
+			} else {
+				this.insertNode(this.root, newNode)
+			}
+		}
+		insertNode (node, newNode) {
+			if (node.key > newNode.key) {
+				if (node.left === null) {
+					node.left = newNode
+				} else {
+					this.insertNode(node.left, newNode)
+				}
+			} else {
+				if (node.right === null) {
+					node.right = newNode
+				} else {
+					this.insertNode(node.right, newNode)
+				}
+			}
+		}
+	}
+	const tree = new BinaryTree()
+	let arr = [8, 2, 6, 14, 10, 66, 5, 4, 9]
+	arr.forEach((key) => {
+		tree.insert(key)
+	})
+	console.log(tree)
+</script>
+</body>
+</html>
