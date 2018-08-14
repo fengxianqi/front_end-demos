@@ -1,0 +1,17 @@
+@function px2rem ($px) {
+	$rem: 37.5px;
+	@return ($px / $rem) + rem
+}
+
+.header{
+	height: px2rem(60px);
+	width: 100%;
+	background: #f00;
+	ul{
+		li{
+			width: px2rem(20px);
+			display: inline-block;
+			font-size: px2rem(16px);
+		}
+	}
+}
