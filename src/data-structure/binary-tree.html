@@ -19,6 +19,7 @@
 		constructor (root) {
 			this.root = root || null
 		}
+		// 插入一个节点
 		insert (key) {
 			let newNode = new Node(key)
 			if (this.root === null) {
@@ -27,6 +28,7 @@
 				this.insertNode(this.root, newNode)
 			}
 		}
+		// 在根节点下插入子节点
 		insertNode (node, newNode) {
 			if (node.key > newNode.key) {
 				if (node.left === null) {
