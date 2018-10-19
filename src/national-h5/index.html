@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="referrer" content="no-referrer" />
+
+  <link rel="apple-touch-icon" sizes="144x144" href="./static/apple-favicon-144x144.png">
+  <link rel="icon" type="image/png" sizes="144x144"  href="./static/apple-favicon-144x144.png">
+  <link rel="icon" href="/static/images/favicon.ico" type="image/x-icon">
+  <!-- 预加载字体 -->
+  <link rel="preload" href="./static/font/HuaKangHaiBaoTiW12-P-1.woff2" as="font" type="font/woff2" crossorigin>
+
+  <title>国庆装逼计划</title>
+  <!-- css reset -->
+  <style>html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*{box-sizing:inherit}*:before,*:after{box-sizing:inherit}img,embed,object,audio,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0;text-align:left}
+  </style>
+  <link rel="stylesheet" type="text/css" href="index.css">
+</head>
+<body>
+  <div class="content">
+      <div id="app">
+        <div v-cloak class="loading-wrapper" v-show="loading" style="font-family: HuaKangW12;">
+          <div class="loading">
+            <div class="loading-text"></div>
+            <div class="loading-progress-wrapper">
+              <div class="loading-progress">
+                <div class="loading-progress-inner" id="progress" :style="`width: ${progress}`"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- 问题 -->
+        <section class="section question" @touchstart="touchstart" touchmove="touchmove" @touchend="touchend($event, 'up')" v-cloak v-show="(current.type === 'q' && !current.tab)">
+          <div class="tips-wrapper">
+            <div class="tips">
+              <div class="tips-text" v-html="current.data.title"></div>
+            </div>
+          </div>
+          <transition :name="current.data.name === question1.name ? 'delay1' : 'delay'">
+          <div v-show="(current.type === 'q' && !current.tab)">
+            <a href="javascript:void(0);" class="btn-arrow updowning" @touchstart="goToAnswer()"></a>
+          </div>
+          </transition>
+        </section>
+        <!-- 回答 -->
+        <transition name="slide-up">
+          <section v-cloak @touchstart="touchstart" touchmove="touchmove" @touchend="touchend($event, 'down')" v-show="current.type === 'q' && current.tab" class="section answer">
+            <div class="name">${current.data.name}</div>
+            <div class="options-wrapper">
+              <div class="option" v-for="(item, index) in current.data.options" :key="index" @touchstart="answer(item.result)" :class="{center: index === current.data.options.length - 1 && index % 2 === 0}">
+                <img class="option-pic" :src="`${item.pic}`" alt="">
+                <div class="option-text"><p>${item.key}.${item.value}</p></div>
+              </div>
+            </div>
+          </section>
+        </transition>
+        <!-- 结果页 -->
+        <section v-cloak v-show="current.type === 'failure' || current.type === 'success'" class="section result">
+          <div v-if="loading2" class="loading2">
+            <img src="./static/images/national_loading2.png" alt="">
+          </div>
+          <div v-else>
+            <img :src="canvasImg" alt="" class="result-img">
+            <div class="result-footer">
+              <a href="javascript:void(0);" class="btn-again" @click="refresh()">
+                <img src="./static/images/national_btn_again.png" alt="">
+              </a>
+              <span class="share-tips">长按并保存图片分享</span>
+            </div>
+          </div>
+        </section>
+        <!-- 引导页 -->
+        <section v-cloak v-show="!loading && current.type === 'normal'" class="section normal">
+          <transition name="scale-fade">
+            <div class="normal1" v-show="current.data === 'normal1'" @click="goToNormal(2)"></div>
+          </transition>
+
+          <div class="normal2" v-show="current.data === 'normal2'">
+            <div class="fade-in">
+              <p class="text1">国庆要来了</p>
+              <p>难道朋友圈</p>
+              <p>又是吃吃喝喝风景照？</p>
+            </div>
+            <div class="fade-in-delay1s">
+              <p class="text2">我！受！够！了！</p>
+              <p>我要过</p>
+              <p>一个有逼格的国庆</p>
+            </div>
+            <div class="fade-in-delay2s">
+              <p class="text3">点击开始装逼,开启你的装逼计划</p>
+              <a href="javascript: void(0);" class="btn-start scaling" @click="goToQuestion(1)">
+                <img src="./static/images/national_btn_start.png" alt="">
+              </a>
+            </div>
+          </div>
+
+        </section>
+        <div v-cloak id="canvas-result" v-show="!loading">
+          <div class="avatar"><img :src="avatar" alt=""></div>
+          <div class="avatar-decoration"></div>
+          <div class="action"><span class="text-red">${showNickName}</span> 国庆选择 <span class="text-red">${current.data.action}</span></div>
+          <div class="result-text">${current.data.resultText}</div>
+          <div class="result-description" v-html="current.data.resultDesc"></div>
+          <div class="rating"><span>装逼指数</span><span v-for="itemClass in current.data.stars" :class="itemClass" class="star"></span></div>
+          <div class="ranking">超越全国<span class="ranking-score">${current.data.score}%</span>的人</div>
+        </div>
+        <div v-cloak class="dialog-wrapper" @touchmove="touchmove" v-show="dialogVisible">
+          <div class="dialog">
+            <p class="dialog-title">${dialog.title}</p>
+            <p class="dialog-desc"><span>${dialog.desc}</span></p>
+            <p class="dialog-btn" @click="answer()">${dialog.btnText}</p>
+          </div>
+        </div>
+        <div v-cloak class="music" v-show="!loading" @click="togglePlayMusic()" :class="musicClass">
+          <audio loop="loop" id="myMusic" autoplay preload="auto">
+            <source src="./static/national_bg_64Kbps.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      </div>
+  </div>
+<script src="https://vuejs.org/js/vue.min.js"></script>
+<script src="./static/scripts/html2canvas.min.js"></script>
+<!-- <script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js" charset="utf-8"></script> -->
+<script>
+
+  var vm = new Vue({
+    delimiters: ['${', '}'], // 改变文本插入符，解决双括号方式和nunjucks冲突
+    el: '#app',
+    data: {
+      current: {
+        type: 'normal',
+        data: 'normal1'
+      },
+      nickname: 'fengxianqi', // 实际使用时需调用微信接口获取用户的昵称
+      avatar: 'http://demo.fengxianqi.com/national-h5/static/images/avatar.jpg',
+      canvasImg: '',
+      dialogVisible: false,
+      dialog: {
+        title: '',
+        desc: '',
+        btnText: ''
+      },
+      musicClass: 'music-pause',
+      loading: true,
+      progress: '0%',
+      loading2: true,
+      timer: null
+    },
+    computed: {
+      showNickName () {
+        return this.nickname.slice(0, 6)
+      }
+    },
+    methods: {
+      answer (ret) {
+        if (!ret) {
+          this.current = this.dialog.result
+          this.$nextTick(function () {
+            this.capture()
+          })
+          this.dialogVisible = false
+        } else {
+          if (ret.type !== 'q') {
+            this.dialog.title = ret.data.dialogTitle
+            this.dialog.desc = ret.data.dialogDesc
+            this.dialog.btnText = ret.data.dialogBtnText
+            this.dialog.result = ret
+            this.dialogVisible = true
+            // 提前加载结果页，防止html2canvas时背景图加载不出来
+            var dom = document.querySelector("#canvas-result")
+            dom.style.display = 'block'
+          } else {
+            this.current   = ret
+          }
+        }
+      },
+      refresh(){
+        this.initQuestion()
+        this.goToNormal(1)
+      },
+      drawImage (el) {
+        var canvas = document.getElementById(el)
+        var width = document.body.offsetWidth
+        var height = width * 1.504
+        var scale = width / 750
+        canvas.width = width
+        canvas.height = height
+        var ctx = canvas.getContext('2d')
+        var imgBg = new Image();
+        imgBg.src = './static/images/national_result.png'
+        var _this = this
+        imgBg.onload = function () {
+          ctx.drawImage(imgBg, 0, 0, width, height)
+          // 画头像
+          var imgAvatar = new Image()
+          imgAvatar.src = _this.avatar
+          imgAvatar.crossOrigin = "anonymous"
+          imgAvatar.onload = function () {
+            ctx.drawImage(imgAvatar, 110 * scale, 172 * scale, 118 * scale, 118 * scale)
+
+          }
+          _this.canvasImg = canvas.toDataURL("image.png")
+        }
+        // ctx.save()
+        // 画昵称
+
+        // 画分数
+
+      },
+      capture () {
+        this.loading2 = true
+        var dom = document.querySelector("#canvas-result")
+        // dom.style.display = 'block'
+        var _this = this
+        setTimeout(function () {
+          html2canvas(dom, {
+            imageTimeout: 0
+          }).then(canvas => {
+            dom.style.display = 'none'
+            _this.canvasImg = canvas.toDataURL('image.png')
+            _this.loading2 = false
+          })
+        }, 50)
+      },
+      initQuestion () {
+        this.question6 = {
+          name: '逛街想干嘛？',
+          title: '<div><p class="fade-in">国庆难得有机会好好逛逛了</p><p class="fade-in-delay1s">赶紧约好朋友，选好地方</p><p class="fade-in-delay2s">然后——逛街想干嘛？</p></div>',
+          options: [
+            {
+              key: 'A',
+              value: '买买买',
+              pic: './static/images/national_emoji6_1.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '你以为有钱就能装逼吗？',
+                  dialogBtnText: '可以的',
+                  action: '逛街买买买',
+                  resultText: '买到破产',
+                  score: 53.5,
+                  resultDesc: '这可能是最昂贵的装逼方式<br />所以谁来接济我一下',
+                  stars: ['star-on', 'star-on', 'star-half', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'B',
+              value: '吃吃吃',
+              pic: './static/images/national_emoji6_2.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '敢公开你的体重吗？',
+                  dialogBtnText: '好吧',
+                  action: '吃吃吃',
+                  resultText: '我要越吃越瘦',
+                  score: 39.7,
+                  resultDesc: '世间那么多美食<br />如果连吃都不想<br />那人生还有什么乐趣？',
+                  stars: ['star-on', 'star-on', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'C',
+              value: '没钱，我就逛逛',
+              pic: './static/images/national_emoji6_3.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '纯逛街就是一种免费运动',
+                  dialogBtnText: '耶',
+                  action: '没钱也逛街',
+                  resultText: '佛系逛街',
+                  score: 78.1,
+                  resultDesc: '打开手机<br />无数点赞<br />我的步数已微信排行榜第一',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-off']
+                }
+              }
+            }
+          ]
+        }
+        this.question5 = {
+          name: '选择一项你最想做的运动',
+          title: '<div><p class="fade-in">天气不错</p><p class="fade-in-delay1s">逼格满满的你想去运动一下</p><p class="fade-in-delay2s">选择一项你最想做的运动</p></div>',
+          options: [
+            {
+              key: 'A',
+              value: '健身',
+              pic: './static/images/national_emoji5_1.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '国庆居然不忘健身？好评！',
+                  dialogBtnText: '耶',
+                  action: '健身',
+                  resultText: '运动让我自由',
+                  score: 86.2,
+                  resultDesc: '与其出去看风景<br />不如让自己成为风景<br />燃烧我的卡路里！！！',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'B',
+              value: '打球',
+              pic: './static/images/national_emoji5_2.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '球场的快乐别的东西比不了',
+                  dialogBtnText: '我懂',
+                  action: '打球',
+                  resultText: '球王再现',
+                  score: 99.9,
+                  resultDesc: '最好的度假方式<br />就是走上球场',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-on']
+                }
+              }
+            },
+            {
+              key: 'C',
+              value: '游泳',
+              pic: './static/images/national_emoji5_3.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '跳进泳池，我就是浪',
+                  dialogBtnText: '耶',
+                  action: '游泳',
+                  resultText: '国庆我最浪',
+                  score: 91.5,
+                  resultDesc: '这世界最美的花<br />就是我激起的浪花<br />有没有人和我一起浪',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-half']
+                }
+              }
+            }
+          ]
+        }
+        this.question3 = {
+          name: '你外出会去干嘛？',
+          title: '<div><p class="fade-in">平时那么忙</p><p class="fade-in-delay1s">国庆终于有机会出门了</p><p class="fade-in-delay2s">你外出会去干嘛？</p></div>',
+          options: [
+            {
+              key: 'A',
+              value: '旅游',
+              pic: './static/images/national_emoji3_1.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '冲鸭！然后淹没在人海',
+                  dialogBtnText: '好吧',
+                  action: '外出旅游',
+                  resultText: '淹没在人海',
+                  score: 10.3,
+                  resultDesc: '哼！<br />等着我秀<br />逼格满满的旅游照吧',
+                  stars: ['star-half', 'star-off', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'B',
+              value: '运动',
+              pic: './static/images/national_emoji3_2.png',
+              result: {
+                type: 'q',
+                data: this.question5
+              }
+            },
+            {
+              key: 'C',
+              value: '逛街',
+              pic: './static/images/national_emoji3_3.png',
+              result: {
+                type: 'q',
+                data: this.question6
+              }
+            }
+          ]
+        }
+
+
+        this.question4 = {
+          name: '你最想看的节目是啥？',
+          title: '<p class="fade-in">咻~屏幕已打开</p><p class="fade-in-delay1s">国庆节目很多哦！</p><p class="fade-in-delay2s">那么你最想看的节目是啥？</p>',
+          options: [
+            {
+              key: 'A',
+              value: '动漫',
+              pic: './static/images/national_emoji4_1.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '宅得就像个放暑假的初中生',
+                  dialogBtnText: '好吧',
+                  action: '在家看动漫',
+                  resultText: '二次元是王道',
+                  score: 43.8,
+                  resultDesc: '7月番都没追完<br />10月番又来了<br />快乐一波接一波，要什么逼格',
+                  stars: ['star-on', 'star-on', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'B',
+              value: '电视剧/综艺',
+              pic: './static/images/national_emoji4_2.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '看得再多你也不是主角',
+                  dialogBtnText: '好吧',
+                  action: '追剧看综艺',
+                  resultText: '抱着屏幕不放',
+                  score: 24.9,
+                  resultDesc: '给我一部好剧<br />我能在床上待7天<br />赶紧推荐好剧给我',
+                  stars: ['star-on', 'star-half', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'C',
+              value: '欧冠小组赛',
+              pic: './static/images/national_emoji4_3.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '有什么比欧冠还重要吗？没有！',
+                  dialogBtnText: '耶',
+                  action: '看欧冠比赛',
+                  resultText: '惊现死忠球迷',
+                  score: 95.8,
+                  resultDesc: '终于可以放心熬夜！<br />为主队呐喊<br />就是最有逼格的事',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-half']
+                }
+              }
+            }
+          ]
+        }
+        this.question2 = {
+          name: '你宅在家是想要——',
+          title: '<div><p class="fade-in">国庆大好时光</p><p class="fade-in-delay1s">居然选择宅？</p><p class="fade-in-delay2s">你宅在家是想要——</p></div>',
+          options: [
+            {
+              key: 'A',
+              value: '玩游戏',
+              pic: './static/images/national_emoji2_1.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '就知道玩玩玩，你上国服了吗？',
+                  dialogBtnText: '好吧',
+                  action: '在家玩游戏',
+                  resultText: '跑毒最重要',
+                  score: 15,
+                  resultDesc: '五杀属于你，吃鸡属于你<br />但装逼不属于你<br />没事，开黑走起！',
+                  stars: ['star-on', 'star-off', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'B',
+              value: '睡觉',
+              pic: './static/images/national_emoji2_2.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '睡觉谁不会，这（tm）也能装逼？',
+                  dialogBtnText: '好吧',
+                  action: '在家睡觉',
+                  resultText: '在梦中装逼',
+                  score: 15,
+                  resultDesc: '手机已关<br />闹钟已砸坏<br />看谁能叫醒我',
+                  stars: ['star-on', 'star-off', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            },
+            {
+              key: 'C',
+              value: '打开电脑/电视',
+              pic: './static/images/national_emoji2_3.png',
+              result: {
+                type: 'q',
+                data: this.question4
+              }
+            },
+            {
+              key: 'D',
+              value: '学习',
+              pic: './static/images/national_emoji2_4.png',
+              result: {
+                type: 'success',
+                data: {
+                  dialogTitle: '装逼成功',
+                  dialogDesc: '沉迷学习，日渐消瘦',
+                  dialogBtnText: '耶',
+                  action: '看书学习',
+                  resultText: '疯狂涨姿势',
+                  score: 85,
+                  resultDesc: '书中自有黄金周<br />你们不懂',
+                  stars: ['star-on', 'star-on', 'star-on', 'star-on', 'star-off']
+                }
+              }
+            }
+          ]
+        }
+        this.question1 = {
+          name: '在哪里开始你的装逼计划？',
+          title: '<div class="fade-in"><p>装逼计划开始！</p><p>难得的国庆假期。</p></div><div class="fade-in-delay1s"><p class="tips-text-3">你会选择在哪里</p><p">开始</p><p>你的装逼计划？</p>',
+          options: [
+            {
+              key: 'A',
+              value: '在家',
+              pic: './static/images/national_emoji1_1.png',
+              result: {
+                type: 'q',
+                data: this.question2
+              }
+            },
+            {
+              key: 'B',
+              value: '外出',
+              pic: './static/images/national_emoji1_2.png',
+              result: {
+                type: 'q',
+                data: this.question3
+              }
+            },
+            {
+              key: 'C',
+              value: '公司加班',
+              pic: './static/images/national_emoji1_3.png',
+              result: {
+                type: 'failure',
+                data: {
+                  dialogTitle: '装逼失败',
+                  dialogDesc: '没假期？！那你还点进来干嘛？',
+                  dialogBtnText: '好吧',
+                  action: '加班',
+                  resultText: '装逼装到苦逼',
+                  score: 27.5,
+                  resultDesc: '别人在旅游<br />我在加班<br />看到的请我吃饭',
+                  stars: ['star-on', 'star-half', 'star-off', 'star-off', 'star-off']
+                }
+              }
+            }
+          ]
+        }
+      },
+      goToNormal (i) {
+        this.current.type = 'normal'
+        this.current.data = 'normal' + i
+        if (i === 1) {
+          // 2s后跳转到下一页
+          var _this = this
+          this.timer = setTimeout(function () {
+            _this.goToNormal(2)
+          }, 1500)
+        }
+        if (i === 2) {
+          clearTimeout(this.timer)
+          this.timer = null
+        }
+      },
+      goToQuestion () {
+        this.$set(this.current, 'data', this.question1)
+        this.current.type = 'q'
+        clearTimeout(this.timer)
+        this.timer = null
+      },
+      initFontSize () {
+        let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
+        let htmlDom =  document.getElementsByTagName('html')[0]
+        htmlDom.style.fontSize = htmlWidth / 10 + 'px'
+
+        window.addEventListener('resize', () => {
+          let htmlWidth = document.documentElement.clientWidth || document.body.clientWidth
+          htmlDom.style.fontSize = htmlWidth / 10 + 'px'
+        })
+        // 动态设置高度
+        let htmlHeight = document.documentElement.clientHeight || document.body.clientHeight
+        // alert(htmlHeight)
+        document.querySelector('#app').style.height = htmlHeight + 'px'
+        document.querySelector('.result').style.height = htmlHeight + 'px'
+        document.querySelector('.section').style.height = htmlHeight + 'px'
+        document.querySelector('.normal1').style.height = htmlHeight + 'px'
+        document.querySelector('.normal2').style.height = htmlHeight + 'px'
+        document.querySelector('.question').style.height = htmlHeight + 'px'
+        document.querySelector('.loading-wrapper').style.height = htmlHeight + 'px'
+        document.querySelector('.answer').style.height = htmlHeight + 'px'
+        if (htmlHeight < 625) {
+          document.querySelector('.answer').style.paddingTop = '1.0533rem'
+          document.querySelector('.result-img').style.width = '9rem'
+        }
+      },
+      togglePlayMusic () {
+        var audio = document.getElementById('myMusic')
+        if (audio.paused) {
+          audio.play()
+          this.musicClass = 'music-play'
+        } else {
+          audio.pause()
+          this.musicClass = 'music-pause'
+        }
+      },
+      goToAnswer () {
+        this.$set(this.current, 'tab', 1)
+      },
+      touchstart (e) {
+         this.startX = e.touches[0].pageX
+         this.startY = e.touches[0].pageY
+         e.preventDefault()
+      },
+      touchmove (e) {
+        e.preventDefault()
+      },
+      touchend (e, targetTab) {
+        this.endX = e.changedTouches[0].pageX
+        this.endY = e.changedTouches[0].pageY
+        var direction = this.getSlideDirection(this.startX, this.startY, this.endX, this.endY)
+
+        if (direction === targetTab) {
+          if (targetTab === 'up') {
+            this.$set(this.current, 'tab', 1)
+          } else {
+            this.$set(this.current, 'tab', 0)
+          }
+        }
+      },
+      getSlideDirection (startX, startY, endX, endY) {
+        var dy = endY - startY
+        if (dy < 0) {
+          return 'up'
+        } else if (dy > 0) {
+          return 'down'
+        } else {
+          return ''
+        }
+      },
+      preloadSource () {
+        var imgs = [
+          './static/images/national_bg1.png',
+          './static/images/national_loading.png',
+          './static/images/national_bg2.png',
+          './static/images/national_loading2.png',
+          './static/images/national_btn_again.png',
+          './static/images/national_btn_arrow.png',
+          './static/images/national_btn_start.png',
+          './static/images/national_music_play.png',
+          './static/images/national_music_pause.png',
+          './static/images/national_result.png',
+          './static/images/national_dialog_bg.png',
+          './static/images/national_normal1.png',
+          './static/images/national_emoji1_1.png',
+          './static/images/national_emoji1_2.png',
+          './static/images/national_emoji1_3.png',
+          './static/images/national_emoji2_1.png',
+          './static/images/national_emoji2_2.png',
+          './static/images/national_emoji2_3.png',
+          './static/images/national_emoji2_4.png',
+          './static/images/national_emoji3_1.png',
+          './static/images/national_emoji3_2.png',
+          './static/images/national_emoji3_3.png',
+          './static/images/national_emoji4_1.png',
+          './static/images/national_emoji4_2.png',
+          './static/images/national_emoji4_3.png',
+          './static/images/national_emoji5_1.png',
+          './static/images/national_emoji5_2.png',
+          './static/images/national_emoji5_3.png',
+          './static/images/national_emoji6_1.png',
+          './static/images/national_emoji6_2.png',
+          './static/images/national_emoji6_3.png',
+          './static/images/national_tips_bg.png',
+          './static/images/national_icon_star_half.png',
+          './static/images/national_icon_star_off.png',
+          './static/images/national_icon_star_on.png',
+          './static/images/national_icon_tam.png'
+        ]
+        var len = imgs.length
+        var _this = this
+        for(var i = 0; i< imgs.length; i++) {
+          var img = new Image()
+          img.src = imgs[i]
+          img.onload = (function (j) {
+            var ratio = parseInt(((j) / (len - 1))*100)
+            _this.progress = ratio + '%'
+            console.log(parseInt(((j) / (len-1))*100))
+            if (ratio === 100) {
+              _this.inter = setInterval(function () {
+                if (document.fonts.check('bold 16px HuaKangW12')) {
+                  _this.loading = false
+                  _this.goToNormal(1)
+                  clearInterval(_this.inter)
+                  _this.inter = null
+                }
+              }, 500)
+
+            }
+          })(i)
+        }
+      }
+    },
+    created: function () {
+      console.log('created')
+      this.initQuestion()
+      this.initFontSize()
+      this.preloadSource()
+    },
+    mounted: function () {
+      console.log('mounted')
+      this.togglePlayMusic()
+
+    }
+  })
+
+  // 腾讯统计代码
+/*  var _mtac = {};
+  (function() {
+      var mta = document.createElement("script");
+      mta.src = "http://pingjs.qq.com/h5/stats.js?v2.0.2";
+      mta.setAttribute("name", "MTAH5");
+      mta.setAttribute("sid", "500646491");
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(mta, s);
+  })();*/
+</script>
+</body>
+</html>
