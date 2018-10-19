@@ -1,0 +1,8 @@
+package framework;
+syntax = "proto3";
+
+message PBUser {
+    uint64 user_id = 0;
+    string name = 1;
+    string mobile = 2;
+}
