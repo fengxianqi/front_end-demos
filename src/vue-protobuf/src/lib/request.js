@@ -90,4 +90,9 @@ function request(msgType, requestBody, responseType) {
   })
 }
 
+request.create = function (protoName, obj) {
+  const pbConstruct = protoRoot.lookup(protoName)
+  return pbConstruct.encode(obj).finish()
+}
+
 export default request

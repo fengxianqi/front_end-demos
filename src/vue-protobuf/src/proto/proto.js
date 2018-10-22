@@ -58,6 +58,15 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
             id: 2
           }
         }
+      },
+      PBStudentListRsp: {
+        fields: {
+          list: {
+            rule: "repeated",
+            type: "PBStudent",
+            id: 1
+          }
+        }
       }
     }
   },
@@ -89,14 +98,6 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
       },
       PBMessageResponse: {
         fields: {
-          encrypted: {
-            type: "bool",
-            id: 1
-          },
-          compressed: {
-            type: "bool",
-            id: 2
-          },
           type: {
             type: "uint32",
             id: 3
@@ -104,14 +105,6 @@ var $root = ($protobuf.roots["default"] || ($protobuf.roots["default"] = new $pr
           messageData: {
             type: "bytes",
             id: 4
-          },
-          appKey: {
-            type: "string",
-            id: 8
-          },
-          requestId: {
-            type: "uint64",
-            id: 5
           },
           resultCode: {
             type: "uint32",
