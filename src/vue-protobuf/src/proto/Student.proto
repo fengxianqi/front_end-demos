@@ -24,5 +24,5 @@ message PBStudentListReq {
 }
 
 message PBStudentListRsp {
-  repeated PBStudent
+  repeated PBStudent list = 1;
 }
