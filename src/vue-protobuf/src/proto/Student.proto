@@ -5,7 +5,7 @@ import "User.proto";
 import "Class.proto";
 
 message PBStudent {
-    uint64 student_id = 0;
+    uint64 studentId = 0;
     PBUser user = 1;
     PBClass class = 2;
     PBStudentDegree degree = 3;
