@@ -19,7 +19,7 @@ message PBMessageResponse {
     uint32 resultCode = 6;                      // 返回的结果码
     string resultInfo = 7;                      // 返回的结果消息提示文本（用于错误提示）
 }
-
+// 所有的接口
 enum PBMessageType {
     // 学生相关
     getStudentList = 0;                         // 获取所有学生的列表, PBStudentListReq => PBStudentListRsp
