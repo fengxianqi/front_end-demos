@@ -8,14 +8,11 @@
 import { getStudentList } from '@/api/student'
 export default {
   name: 'HelloWorld',
-  created () {
-
-  },
   methods: {
     _getStudentList () {
       const req = {
-        limit = 20,
-        offset = 0
+        limit: 20,
+        offset: 0
       }
       getStudentList(req).then((res) => {
         console.log(res)
@@ -23,8 +20,12 @@ export default {
         console.error(res)
       })
     }
+  },
+  created () {
   }
 }
 </script>
+
+<style lang="scss">
 
 </style>

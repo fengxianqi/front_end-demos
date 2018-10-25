@@ -1,0 +1,138 @@
+{
+  "nested": {
+    "school": {
+      "nested": {
+        "PBClass": {
+          "fields": {
+            "classId": {
+              "type": "uint64",
+              "id": 0
+            },
+            "name": {
+              "type": "string",
+              "id": 1
+            }
+          }
+        },
+        "PBStudent": {
+          "fields": {
+            "studentId": {
+              "type": "uint64",
+              "id": 0
+            },
+            "user": {
+              "type": "PBUser",
+              "id": 1
+            },
+            "class": {
+              "type": "PBClass",
+              "id": 2
+            },
+            "degree": {
+              "type": "PBStudentDegree",
+              "id": 3
+            }
+          }
+        },
+        "PBStudentDegree": {
+          "values": {
+            "PRIMARY": 0,
+            "MIDDLE": 1,
+            "SENIOR": 2,
+            "COLLEGE": 3
+          }
+        },
+        "PBStudentListReq": {
+          "fields": {
+            "offset": {
+              "type": "uint32",
+              "id": 1
+            },
+            "limit": {
+              "type": "uint32",
+              "id": 2
+            }
+          }
+        },
+        "PBStudentListRsp": {
+          "fields": {
+            "list": {
+              "rule": "repeated",
+              "type": "PBStudent",
+              "id": 1
+            }
+          }
+        }
+      }
+    },
+    "framework": {
+      "nested": {
+        "PBMessageRequest": {
+          "fields": {
+            "type": {
+              "type": "uint32",
+              "id": 1
+            },
+            "messageData": {
+              "type": "bytes",
+              "id": 2
+            },
+            "timestamp": {
+              "type": "uint64",
+              "id": 3
+            },
+            "version": {
+              "type": "string",
+              "id": 4
+            },
+            "token": {
+              "type": "string",
+              "id": 14
+            }
+          }
+        },
+        "PBMessageResponse": {
+          "fields": {
+            "type": {
+              "type": "uint32",
+              "id": 3
+            },
+            "messageData": {
+              "type": "bytes",
+              "id": 4
+            },
+            "resultCode": {
+              "type": "uint32",
+              "id": 6
+            },
+            "resultInfo": {
+              "type": "string",
+              "id": 7
+            }
+          }
+        },
+        "PBMessageType": {
+          "values": {
+            "getStudentList": 0
+          }
+        },
+        "PBUser": {
+          "fields": {
+            "userId": {
+              "type": "uint64",
+              "id": 0
+            },
+            "name": {
+              "type": "string",
+              "id": 1
+            },
+            "mobile": {
+              "type": "string",
+              "id": 2
+            }
+          }
+        }
+      }
+    }
+  }
+}

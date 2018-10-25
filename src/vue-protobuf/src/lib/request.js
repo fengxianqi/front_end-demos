@@ -26,7 +26,7 @@ function getMessageTypeValue(msgType) {
   return ret
 }
 
-// 将请求数据encode成二进制
+// 将请求数据encode成二进制，encode是proto.js提供的方法
 function transformRequest(data) {
   return PBMessageRequest.encode(data).finish()
 }
@@ -56,20 +56,26 @@ function transformResponseFactory(responseType) {
   }
 }
 
+/**
+ * 
+ * @param {*} msgType 接口名称
+ * @param {*} requestBody 请求体参数
+ * @param {*} responseType 返回值
+ */
 function request(msgType, requestBody, responseType) {
   // 得到api的枚举值
   const _msgType = getMessageTypeValue(msgType)
 
-  // 请求需要的数据
+  // 构造公共请求体:PBMessageRequest
   const reqData = {
     timeStamp: new Date().getTime(),
     type: _msgType,
     version: apiVersion,
-    messageData: requestBody,
+    messageData: requestBody, // 加密后的请求参数
     token: token
   }
 
-  // 根据数据请求体实例
+  // 将对象序列化成请求体实例
   const req = PBMessageRequest.create(reqData)
   
   // 这里用到axios的配置项：transformRequest和transformResponse
@@ -90,6 +96,7 @@ function request(msgType, requestBody, responseType) {
   })
 }
 
+// 在request下添加一个方法，方便用于处理请求参数
 request.create = function (protoName, obj) {
   const pbConstruct = protoRoot.lookup(protoName)
   return pbConstruct.encode(obj).finish()
