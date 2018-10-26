@@ -44,24 +44,142 @@
 				}
 			}
 		}
-		inOrderTraverseNode (node, callback) {
+		_inOrderTraverseNode (node, callback) {
 			if (node !== null) {
-				this.inOrderTraverseNode(node.left, callback)
+				this._inOrderTraverseNode(node.left, callback)
 				callback(node.key)
-				this.inOrderTraverseNode(node.right, callback)
+				this._inOrderTraverseNode(node.right, callback)
 			}
 		}
+		// 中序遍历
 		inOrderTraverse (callback) {
-			this.inOrderTraverseNode(this.root, callback)
+			this._inOrderTraverseNode(this.root, callback)
 		}
 
+		_preOrderTraverseNode (node, callback) {
+			if (node !== null) {
+				callback(node.key)
+				this._preOrderTraverseNode(node.left, callback)
+				this._preOrderTraverseNode(node.right, callback)
+			}
+		}
+		// 前序遍历
+		preOrderTraverse (callback) {
+			this._preOrderTraverseNode(this.root, callback)
+		}
+
+		_postOrderTraverseNode (node, callback) {
+			if (node !== null) {
+				this._postOrderTraverseNode(node.left, callback)
+				this._postOrderTraverseNode(node.right, callback)
+				callback(node.key)
+			}
+		}
+		// 后序遍历
+		postOrderTraverse (callback) {
+			this._postOrderTraverseNode(this.root, callback)
+		}
+
+		// 最小值
+		min () {
+			return this._minNode(this.root)
+		}
+		_minNode (node) {
+			if (node) {
+				while (node && node.left !== null) {
+					node = node.left
+				}
+				return node.key
+			}
+			return null
+		}
+
+		// 最大值
+		max () {
+			return this._maxNode(this.root)
+		}
+		_maxNode (node) {
+			if (node) {
+				while(node && node.right) {
+					node = node.right
+				}
+				return node.key
+			}
+			return null
+		}
+
+		// 查找
+		search (key) {
+			return this._searchNode(this.root, key)
+		}
+		_searchNode (node, key) {
+			if (node === null) {
+				return false
+			}	
+			if (key < node.key) {
+				return this._searchNode(node.left, key)
+			} else if (key > node.key) {
+				return this._searchNode(node.right, key)
+			} else {
+				return true
+			}
+		}
+
+		// 删除节点
+		remove (key) {
+			this._removeNode(this.root, key)
+		}
+
+		findMinNode (node) {
+			if (node) {
+				while(node && node.left) {
+					node = node.left
+				}
+				return node
+			}
+			return null
+		}
+
+		_removeNode (node, key) {
+			if (node === null) {
+				return null
+			}
+			if (key < node.key) {
+				node.left = this._removeNode(node.left, key)
+				return node
+			} else if (key > node.key) {
+				node.right = this._removeNode(node.right, key)
+				return node
+			} else {
+				// 叶子节点情况直接删除
+				if (node.left === null && node.right === null) {
+					node = null
+					return node
+				}
+
+				// 有左或右子树的情况，直接将子树替换为删除的节点
+				if (node.left === null) {
+					node = node.right
+					return node
+				} else  if (node.right === null) {
+					node = node.left
+					return node
+				}
+
+				// 同时有两个子树的情况,将右子树最小的节点替换到被删除的节点
+				let aux = this.findMinNode(node.right)
+				node.key = aux.key
+				node.right = this._removeNode(node.right, aux.key)
+				return node
+			}
+		}
 	}
 
 
 
 
 	const tree = new BinaryTree()
-	let arr = [8, 2, 6, 14, 10, 66, 5, 4, 9]
+	let arr = [8, 3, 10, 1, 6, 14, 4, 7, 13]
 	arr.forEach((key) => {
 		tree.insert(key)
 	})
@@ -71,7 +189,18 @@
 	function cb (key) {
 		console.log(key)
 	}
-	tree.inOrderTraverse(cb)
+	//
+	tree.postOrderTraverse(cb)
+
+	console.log('min: ', tree.min())
+
+	console.log('max: ', tree.max())
+
+	console.log('search 1:', tree.search(1))
+
+
+	tree.remove(8)
+	console.log(tree)
 </script>
 </body>
 </html>
