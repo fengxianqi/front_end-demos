@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+  <meta name="format-detection" content="telephone=no,email=no">
+  <meta name="referrer" content="no-referrer" />
+
+  <meta name="author" content="fengxianqi">
+  <meta name="keywords" content="音频格式,测试,音频格式测试">
+  <title>浏览器音频格式测试</title>
+  
+
+  
+<style>html,body,p,ol,ul,li,dl,dt,dd,blockquote,figure,fieldset,legend,textarea,pre,iframe,hr,h1,h2,h3,h4,h5,h6{margin:0;padding:0}h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal}ul{list-style:none}button,input,select,textarea{margin:0}html{box-sizing:border-box}*{box-sizing:inherit}*:before,*:after{box-sizing:inherit}img,embed,object,audio,video{height:auto;max-width:100%}iframe{border:0}table{border-collapse:collapse;border-spacing:0}td,th{padding:0;text-align:left}</style>
+  <style>
+    .content>div{
+      margin: 20px;
+      height: auto;
+      height: 40px;
+    }
+    audio{
+        width: 400px;
+        height:40px;
+      }
+      .hidden{
+      	display: none;
+      }
+     h1{
+     	margin: 0 auto;
+     	font-weight: bold;
+     }
+  </style>
+
+</head>
+<body>
+  <div class="content" id="content">
+    <h1>浏览器音频格式测试</h1>
+    <h2 class="hidden">浏览器音频格式测试</h2>
+  	<p>mp3</p>
+    <div>
+	    <audio id="myVideo" src="static/national_bg.mp3" controls loop>
+	      你的浏览器不支持audio
+	    </audio>
+    </div>
+    <p>aac</p>
+    <div>
+      <audio src="static/aac.aac" controls loop></audio>
+    </div>
+    <p>wav</p>
+    <div>
+      <audio src="static/wav.wav" controls loop></audio>
+    </div>
+    <p>ogg</p>
+        <div>
+      <audio src="static/ogg.ogg" controls loop></audio>
+    </div>
+    <p>wma</p>
+    <div>
+      <audio src="static/wma.wma" controls loop></audio>
+    </div>
+    <p>webm</p>
+    <div>
+      <audio src="static/webmv2.webm" controls loop></audio>
+    </div>
+    <p>opus</p>
+    <div>
+      <audio src="static/opus.opus" controls loop></audio>
+    </div>
+    <p>weba</p>
+    <div>
+      <audio src="static/weba.weba" controls loop></audio>
+    </div>
+    <p>flac</p>
+    <div>
+      <audio src="static/flac.flac" controls loop></audio>
+    </div>
+    <p>caf</p>
+    <div>
+      <audio src="static/cafopus.caf" controls loop></audio>
+    </div>
+  </div>
+
+
+  
+  <script>
+     //var btn1 = document.getElementById('play_pause');
+     //var audio1
+     //console.log(btn1.dataset.url);
+  </script>
+
+
+</body>
+</html>
