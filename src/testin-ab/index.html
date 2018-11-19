@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Testin-AB测试页面</title>
+	<style type="text/css">
+		.box{
+			width: 100px;
+			height: 100px;
+			background: #f00;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			cursor: pointer;
+		}
+	</style>
+</head>
+<body>
+	<div class="box middle">
+		我是一个红包，快点击我
+	</div>
+	<script src="https://mirror.testin.cn/testin-ab-v4.2.2.js"></script>
+	<script type="text/javascript">
+		// document.querySelector('.box').style = 'bottom: 0;left: 0;';
+		var appKey = 'TESTIN_h44376803-8a5b-42f2-a46f-b19727ffc9ba';
+	    testinAB.init(appKey);
+	    testinAB.setDefVars({
+	      giftPosition: 'left: 0; bottom: 0;' //设置变量loginTxt的默认值为'立即登录'
+	    });
+	    testinAB.getVars(function(vars) {
+	      //假设页面中有个按钮的id是btn，且用到了jquery，通过A/B测试来设置按钮的文字
+	      // $('').html(vars.get('loginTxt'));//通过变量loginTxt的值来设置按钮的文字
+	      console.log(vars)
+	      document.querySelector('.box').style = vars.get('giftPosition');
+	    });
+	    document.querySelector('.box').onclick = function () {
+
+	    	testinAB.track('clickCount', 1); //上报指标settingClick, 每次累加1
+
+	    	alert('点击了')
+	    }
+	</script>
+</body>
+</html>
