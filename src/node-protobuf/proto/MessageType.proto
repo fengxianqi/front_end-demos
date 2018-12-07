@@ -1,0 +1,26 @@
+package framework;
+syntax = "proto3";
+
+// 公共请求体
+message PBMessageRequest {
+    uint32 type = 1;                            // 消息类型
+    bytes messageData = 2;                      // 请求数据
+    uint64 timestamp = 3;                       // 客户端时间戳
+    string version = 4;                         // api版本号
+
+    string token = 14;                          // 用户登录后服务器返回的 token，用于登录校验
+}
+
+// 消息响应包
+message PBMessageResponse {
+    uint32 type = 3;                            // 消息类型
+    bytes messageData = 4;                      // 返回数据
+
+    uint32 resultCode = 6;                      // 返回的结果码
+    string resultInfo = 7;                      // 返回的结果消息提示文本（用于错误提示）
+}
+// 所有的接口
+enum PBMessageType {
+    // 学生相关
+    getStudentList = 0;                         // 获取所有学生的列表, PBStudentListReq => PBStudentListRsp
+}
