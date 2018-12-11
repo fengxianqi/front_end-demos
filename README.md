@@ -9,7 +9,7 @@
 - <a href="http://demo.fengxianqi.com/national-h5/index.html" target="_blank">6. vue国庆装逼计划h5活动页面(移动端)</a>
 
 
-## 以下几课来源于<a href="https://zhuanlan.zhihu.com/p/22766255" target="_blank">有哪些适合新手练手的前端项目？</a>。自己跟着一步一步写下来，源码放在<a href="https://github.com/fengxianqi/front_end-demos" target="_blank">GitHub上</a>，非常感谢原项目作者。
+> 以下几课来源于<a href="https://zhuanlan.zhihu.com/p/22766255" target="_blank">有哪些适合新手练手的前端项目？</a>。自己跟着一步一步写下来，源码放在<a href="https://github.com/fengxianqi/front_end-demos" target="_blank">GitHub上</a>，非常感谢原项目作者。
 <a href="http://www.fgm.cc/learn/" target="_blank">原生JavaScript学习,By Ferris</a>
 #### 第一课
 - <a href="http://demo.fengxianqi.com/lesson1/controll-div/" target="_blank">1.控制div属性</a>
