@@ -155,7 +155,7 @@ module.exports = {
 ```
 这里要求，在使用```create```和```lookup```前，需要先```loadProtoDir```，将所有的proto都放进内存。
 ### 2. 封装request.js
-这里要建议先看一下[```MessageType.proto```](http://todo.com)，其中定义了与后端约定的接口枚举、请求体、响应体。
+这里要建议先看一下[```MessageType.proto```](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf/proto)，其中定义了与后端约定的接口枚举、请求体、响应体。
 ```
 const rp = require('request-promise') 
 const proto = require('./proto.js')  // 上面我们封装好的proto.js
