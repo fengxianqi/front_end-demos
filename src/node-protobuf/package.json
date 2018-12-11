@@ -10,5 +10,10 @@
     "protobuf"
   ],
   "author": "fengxianqi",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "lodash": "^4.17.11",
+    "protobufjs": "^6.8.8",
+    "request-promise": "^4.2.2"
+  }
 }

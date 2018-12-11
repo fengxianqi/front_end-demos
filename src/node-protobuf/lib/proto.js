@@ -14,7 +14,8 @@ function loadProtoDir (dirPath) {
   const protoFiles = files
     .filter(fileName => fileName.endsWith('.proto'))
     .map(fileName => path.join(dirPath, fileName))
-  _proto = ProtoBuf.loadSync(filePath).nested
+  _proto = ProtoBuf.loadSync(protoFiles).nested
+  return _proto
 }
 
 
@@ -23,7 +24,7 @@ function loadProtoDir (dirPath) {
 
 // 根据typeName在所有的.proto中的pb
 // 如：school.PBStudent,返回ProtoBuf处理后的PBMessage
-// 这里需要根据obj[xx.xx]来查找取值，所以用到一个deepGet方法，可以用lodash.get()来代替
+// 这里需要根据obj[school.PBStudent]来取值，所以用到一个deepGet方法，可以用lodash.get()来代替
 function lookup (typeName) {
   if (!_.isString(typeName)) {
     throw new TypeError('typeName must be a string')
@@ -48,6 +49,7 @@ function create (protoName, obj) {
 }
 
 module.exports = {
+	lookup,
 	create,
 	loadProtoDir // 在调用create前，先调用该方法把所有的.proto放到内存中
 }
