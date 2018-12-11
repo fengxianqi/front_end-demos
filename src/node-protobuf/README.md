@@ -1,5 +1,5 @@
 
-> 前端时间分享了一篇：[如何在前端中使用protobuf（vue篇）](https://juejin.im/post/5bcda388e51d457a1179da01)，一直懒癌发作把node篇拖到了现在。上次分享中很多同学就"前端为什么要用protobuf"展开了一些讨论，表示前端不适合用```protobuf```。我司是ios、android、web几个端都一起用了protobuf，我也在之前的分享中讲了其中的一些收益和好处。如果你们公司也用到，或者以后可能用到，我的这两篇分享或许能给你一些启发。合不合适在这里就不讨论了，下面进入正题。
+> 前端时间分享了一篇：[如何在前端中使用protobuf（vue篇）](https://juejin.im/post/5bcda388e51d457a1179da01)，一直懒癌发作把node篇拖到了现在。上次分享中很多同学就"前端为什么要用protobuf"展开了一些讨论，表示前端不适合用```protobuf```。我司是ios、android、web几个端都一起用了protobuf，我也在之前的分享中讲了其中的一些收益和好处。如果你们公司也用到，或者以后可能用到，我的这两篇分享或许能给你一些启发。
 ## 解析思路
 同样是要使用[protobuf.js](https://github.com/dcodeIO/protobuf.js)这个库来解析。
 
@@ -45,7 +45,7 @@ api.getStudentList(req).then((res) => {
 ```
 
 ## 准备工作：
-准备[如何在前端中使用protobuf（vue篇）](https://juejin.im/post/5bcda388e51d457a1179da01#heading-4)中定义好的一份```.proto```,注意这份proto中定义了两个命名空间：```framework```和```school```。[proto文件源码](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf/src/proto)
+准备[如何在前端中使用protobuf（vue篇）](https://juejin.im/post/5bcda388e51d457a1179da01#heading-4)中定义好的一份```.proto```,注意这份proto中定义了两个命名空间：```framework```和```school```。[proto文件源码](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf/proto)
 ## 封装proto.js
 参考下官方文档将object转化为buffer的方法：
 ```
@@ -155,7 +155,7 @@ module.exports = {
 ```
 这里要求，在使用```create```和```lookup```前，需要先```loadProtoDir```，将所有的proto都放进内存。
 ### 2. 封装request.js
-这里要建议先看一下[```MessageType.proto```](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf/proto)，其中定义了与后端约定的接口枚举、请求体、响应体。
+这里要建议先看一下[```MessageType.proto```](http://todo.com)，其中定义了与后端约定的接口枚举、请求体、响应体。
 ```
 const rp = require('request-promise') 
 const proto = require('./proto.js')  // 上面我们封装好的proto.js
@@ -238,3 +238,5 @@ api.getStudentList(req).then((res) => {
 })
 ```
 ## 最后
+[demo源码](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf)
+觉得还行请给个star和喜欢。
