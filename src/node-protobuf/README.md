@@ -78,9 +78,10 @@ const reqBuffer = proto.create('school.PBStudentListReq', dataObj)
 我们使用时只需要以```PBStudentListReq```和```dataObj```作为参数即可，无需关心```PBStudentListReq```是在哪个```.proto```文件中。
 这里有个难点:**如何根据类型来找到所在的```.proto```呢？**
 
-方法是：先把所有的```.proto```放进内存中，然后在其中找到对应的类型。
-#### 先把所有的proto保存在```_proto```变量中。
+方法是：把所有的```.proto```放进内存中，然后根据名称获取对应的类型。
 
+
+写一个loadProtoDir方法，把所有的proto保存在```_proto```变量中。
 ```
 // proto.js
 const fs = require('fs')
@@ -154,7 +155,7 @@ module.exports = {
 }
 ```
 这里要求，在使用```create```和```lookup```前，需要先```loadProtoDir```，将所有的proto都放进内存。
-### 2. 封装request.js
+## 封装request.js
 这里要建议先看一下[```MessageType.proto```](http://todo.com)，其中定义了与后端约定的接口枚举、请求体、响应体。
 ```
 const rp = require('request-promise') 
@@ -209,7 +210,7 @@ function request (msgType, requestBody, responseType) {
 
 module.exports = request
 ```
-## 3. 使用
+## 使用
 
 ```request.js```和```proto.js```提供底层的服务，为了使用方便，我们还要封装一个```api.js```，定义项目中所有的api。
 ```
@@ -239,4 +240,3 @@ api.getStudentList(req).then((res) => {
 ```
 ## 最后
 [demo源码](https://github.com/fengxianqi/front_end-demos/tree/master/src/node-protobuf)
-觉得还行请给个star和喜欢。
