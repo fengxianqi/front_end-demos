@@ -1,0 +1,7 @@
+package school;
+syntax = "proto3";
+
+message PBClass {
+    uint64 classId = 0;
+    string name = 1;
+}
