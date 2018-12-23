@@ -45,6 +45,7 @@
 	    </audio>
     </div>
     <p>aac</p>
+    <p><button id="aac-btn">用howler.js播放aac</button></p>
     <div>
       <audio src="static/web.aac" controls loop></audio>
     </div>
@@ -56,9 +57,9 @@
         <div>
       <audio src="static/ogg.ogg" controls loop></audio>
     </div>
-    <p>wma</p>
+    <p>m4a</p>
     <div>
-      <audio src="static/wma.wma" controls loop></audio>
+      <audio src="static/national_bg.m4a" controls loop></audio>
     </div>
     <p>webm</p>
     <div>
@@ -83,11 +84,21 @@
   </div>
 
 
-  
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.15/howler.core.min.js"></script>
   <script>
-     //var btn1 = document.getElementById('play_pause');
-     //var audio1
-     //console.log(btn1.dataset.url);
+    var sound = new Howl({
+      src: ['static/aac.aac']
+    });
+    var btn = document.getElementById('aac-btn')
+    btn.addEventListener('click', function () {
+    	if (sound.playing()) {
+    		sound.pause()
+    	} else {
+    		sound.play();		
+    	}
+    	
+    })
+    
   </script>
 
 

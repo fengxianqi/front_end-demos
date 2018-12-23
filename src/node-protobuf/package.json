@@ -1,0 +1,19 @@
+{
+  "name": "node-protobuf",
+  "version": "1.0.0",
+  "description": "a demo of using protobuf in nodejs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "protobuf"
+  ],
+  "author": "fengxianqi",
+  "license": "MIT",
+  "devDependencies": {
+    "lodash": "^4.17.11",
+    "protobufjs": "^6.8.8",
+    "request-promise": "^4.2.2"
+  }
+}
