@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/007.整数反转.js"
+      "program": "${workspaceFolder}/0099.回文数.js"
     }
   ]
 }
