@@ -8,13 +8,139 @@
     
     <!-- Don't use this in production: -->
     <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <style type="text/css">
+    	.edit{
+		    display:block ;
+		    width:80%;
+		    height: 35px;
+		    line-height: 35px;
+		    margin: 30px auto;
+		    box-sizing: border-box;
+		    padding-left: 4px;
+		    border-radius: 4px;
+		    border:1px solid #ccc;
+		    outline: 0;
+		    box-shadow: 0 0 5px #ccc;
+		 }
+		 .list{
+		    margin: 0 auto;
+		    width:80%;
+		 }
+		 .unit{
+		    position: relative;
+		    padding: 10px 0;
+		    border-bottom: 1px solid #efefef;
+		 }
+		 .unit:last-child{
+		    border-bottom: 0;
+		 }
+		  .finish{
+		    text-decoration: line-through;
+		    color: #ccc;
+		 }
+		  .del{
+		    background: red;
+		    text-decoration: none;
+		    position: absolute;
+		    right:0;
+		    font-size: 12px;
+		    border: 0;
+		    outline: 0;
+		    padding: 2px 5px;
+		    border-radius: 5px;
+		    color: #fff;
+		 }
+		  .empty{
+		    font-size: 13px;
+		    color: #ccc;
+		    text-align: center;
+		    padding: 10px 0;
+		 }
+    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="text/babel">
+    	class TaskItem extends React.Component {
+    		constructor (props) {
+    			super(props)
+    		}
+    		handleCheckboxChange (index) {
+    			this.props.onFinishedChange(index)
+    		}
+    		handleRemoveTask = () => {
+    			this.props.onRemoveTask(this.props.index)
+    		}
+    		render () {
+    			return (
+						<div className="unit">
+							<input checked={this.props.task.finished} type="checkbox" onChange={(e) => this.handleCheckboxChange(this.props.index)} />
+							<span className={this.props.task.finished ? 'finish' : null}>{this.props.task.content}</span>
+							<button className="del" onClick={this.handleRemoveTask}>删除</button>
+						</div>
+    			)
+    		}
+    	}
 
+    	class App extends React.Component {
+    	  constructor (props) {
+    	  	super(props)
+    	  	this.state = {
+    	  		list: [],
+    	  		task: {
+    	  			content: '',
+    	  			deleted: false,
+    	  			finished: false
+    	  		}
+    	  	}
+    		}
+    		inputChange = (e) => {
+    			this.setState({
+    				task: {
+    					...this.state.task,
+    					content: e.target.value
+    				}
+    			})
+    		}
+    		addTask = (e) => {
+    			if (e.keyCode === 13) {
+    				const list = [...this.state.list]
+    				list.push(this.state.task)
+    				this.setState({
+    					list: list,
+    					task: {
+    						...this.state.task,
+    						content: ''
+    					}
+    				})
+    			}
+    		}
+    		onFinishedChange = (index) => {
+    			let list = [...this.state.list]
+    			const curState = list[index].finished
+    			list[index].finished = !curState
+    			this.setState({
+    				list: list
+    			})
+    		}
+    		removeTask = (index) => {
+    			let list = [...this.state.list]
+    			list.splice(index, 1)
+    			this.setState({list})
+    		}
+    		render () {
+    			return  (
+    				<div>
+							<input type="text" value={this.state.task.content} className="edit" onChange={this.inputChange} onKeyUp={this.addTask} />
+							{
+								this.state.list.map((item, index) => <TaskItem task={item} key={index} index={index} onFinishedChange={this.onFinishedChange} onRemoveTask={this.removeTask} />)
+							}
+    				</div>
+    			)
+    		}
+    	}
       ReactDOM.render(
-        <h1>Hello, world!</h1>,
+        <App />,
         document.getElementById('root')
       );
 
