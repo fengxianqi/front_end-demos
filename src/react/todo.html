@@ -131,9 +131,12 @@
     		render () {
     			return  (
     				<div>
-							<input type="text" value={this.state.task.content} className="edit" onChange={this.inputChange} onKeyUp={this.addTask} />
-							{
-								this.state.list.map((item, index) => <TaskItem task={item} key={index} index={index} onFinishedChange={this.onFinishedChange} onRemoveTask={this.removeTask} />)
+							<input placeholder="编写任务" type="text" value={this.state.task.content} className="edit" onChange={this.inputChange} onKeyUp={this.addTask} />
+							{ this.state.list.length ? (
+									this.state.list.map((item, index) => <TaskItem task={item} key={index} index={index} onFinishedChange={this.onFinishedChange} onRemoveTask={this.removeTask} />)
+								) : (
+									<p className="empty">暂无任务</p>
+								)
 							}
     				</div>
     			)
