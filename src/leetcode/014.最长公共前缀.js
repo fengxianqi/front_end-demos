@@ -33,6 +33,12 @@
  * 所有输入只包含小写字母 a-z 。
  * 
  */
+/* 
+思路： 
+1. 将字符串数组中的第一个字符串first取出来，
+2. 遍历first的所有字符
+3. 遍历剩余的字符串数组中的相同位置字符，若都相同则push到ret，否则结束所有的遍历。
+*/
 /**
  * @param {string[]} strs
  * @return {string}
@@ -68,5 +74,5 @@ var longestCommonPrefix = function(strs) {
     return ret.join('')
 };
 
-// console.log(longestCommonPrefix(["dog","racecar","car"]))
+// console.log(longestCommonPrefix(["flower","flow","flight"]))
 
