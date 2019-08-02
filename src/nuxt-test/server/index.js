@@ -13,12 +13,6 @@ config.dev = process.env.NODE_ENV !== 'production'
 
 const api = require('./routers')
 
-app.use(bodyParser.json())
-app.use('/static', express.static('static'))
-
-// Import API Routes
-app.use('/api', api)
-
 async function start () {
   // Init Nuxt.js
   const nuxt = new Nuxt(config)
@@ -32,6 +26,12 @@ async function start () {
   } else {
     await nuxt.ready()
   }
+  
+  app.use(bodyParser.json())
+  app.use('/static', express.static('static'))
+  
+  // Import API Routes
+  app.use('/api', api)
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
