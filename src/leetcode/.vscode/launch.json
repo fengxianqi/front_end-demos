@@ -8,7 +8,7 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "program": "${workspaceFolder}/020.有效的括号.js"
+      "program": "${file}"
     }
   ]
 }
