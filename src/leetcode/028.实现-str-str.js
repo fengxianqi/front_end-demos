@@ -3,6 +3,18 @@
  *
  * [28] 实现 strStr()
  */
+/**
+ * 
+ * 思路一：
+ * 不可避免地想到了暴力破解法
+ * 即遍历haystack，当遇到一个字符刚好等于needle[0]，就遍历needle，直到完全匹配就说明就是该位置。
+ * 
+ * 
+ * 思路二：
+ * KMP算法： 
+ * http://www.ruanyifeng.com/blog/2013/05/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm.html
+ * https://www.jianshu.com/p/ffbf1e8962b0
+ */
 
 // @lc code=start
 /**
