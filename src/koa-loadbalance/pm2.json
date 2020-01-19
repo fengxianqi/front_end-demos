@@ -1,0 +1,7 @@
+{
+  "name": "koa-loadbalance",
+  "script": "./index.js",
+  "instances": 2,
+  "cwd": ".",
+  "exec_mode": "cluster"
+}
