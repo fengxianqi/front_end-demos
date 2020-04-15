@@ -2,38 +2,16 @@
 <html>
 <head>
 	<title>Binary Tree Test</title>
+	<link rel="stylesheet" href="./style.css">
 </head>
 <body>
+	<div id="stage"></div>
 
 <script type="module">
 	// chrome下直接打开该文件会报错：Access to script at 'xxx/binary-tree.js' from origin 'null' has been blocked by CORS policy: Cross origin requests are only supported for protocol schemes: http, data, chrome, chrome-extension, https.
 	// 需要使用http服务打开该文件，vscode可以安装一个插件（Live Server），让该html运行在http服务中。
 	import BinaryTree from './binary-tree.js'
 
-	// 测试
-	const tree = new BinaryTree()
-	let arr = [8, 3, 10, 1, 6, 14, 4, 7, 13]
-	arr.forEach((key) => {
-		tree.insert(key)
-	})
-	console.log(tree)
-
-
-	function cb (key) {
-		console.log(key)
-	}
-	//
-	tree.postOrderTraverse(cb)
-
-	console.log('min: ', tree.min())
-
-	console.log('max: ', tree.max())
-
-	console.log('search 1:', tree.search(1))
-
-
-	tree.remove(8)
-	console.log(tree)
 </script>
 </body>
 </html>
