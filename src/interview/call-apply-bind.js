@@ -1,6 +1,7 @@
 
 
-
+// https://zhuanlan.zhihu.com/p/71553017
+// https://juejin.im/post/6844903880333983751#heading-10
 
 Function.prototype.myCall = function(context, ...args) {
   // context为空或null时，指向window
@@ -53,6 +54,7 @@ person.hello.myCall(lisi, 'a', 'b')
 
 
 person.hello.myApply(lisi, ['a', 'b'])
+
 
 
 
