@@ -82,8 +82,44 @@ console.log('b5 type:', b5.type)  // => student
 // func.length 表示函数的参数个数
 function func (a, b,c){}
 
-const bb = func.bind({})
+const bb = func.bind({}, 1)
 console.log('boundFunc.name', bb.name) //=> bound func
 console.log('func.name', func.name) // => func
-console.log('boundFunc.length', bb.length) //=> bound func
-console.log('func.length', func.length) //=> bound func
+console.log('boundFunc.length', bb.length) //=> 2, func的参数数量-bind时传的参数数量
+console.log('func.length', func.length) //=> 3
+
+const b7 = func.myBind3({}, 1)
+console.log('boundFunc.name3', b7.name) //=> boundFunc 错误
+console.log('boundFunc.length3', b7.length) //=> 0 错误
+
+
+
+// Function.prototype.name 和 Function.prototype.length 是不可写的
+Function.prototype.myBind4 = function (context, ...args) {
+  const _this = this
+
+  const boundFunc = function (...others) {
+    return _this.call(new.target ? this : context, ...args, ...others)
+  }
+
+// 修复原型链
+  boundFunc.prototype = Object.create(_this.prototype)
+  boundFunc.prototype.constructor = boundFunc
+
+  // 修复原型参数
+  Object.defineProperties(boundFunc, {
+    name: {
+      value: `bound ${_this.name}`
+    },
+    length: {
+      value: _this.length
+    }
+  })
+
+  return boundFunc
+}
+
+
+const b8 = func.myBind4({}, 1)
+console.log('boundFunc.name4', b8.name) //=> bound func
+console.log('boundFunc.length4', b8.length) //=>2

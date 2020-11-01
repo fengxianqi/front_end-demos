@@ -18,10 +18,10 @@
  * @return {void} Do not return anything, modify nums in-place instead.
  */
 var rotate = function(nums, k) {
-  const arrK = nums.slice(nums.length - k - 1)
+  const arrK = nums.slice(nums.length - k)
   
   console.log(arrK)
-  nums = arrK.concat(nums.slice(0, nums.length - k - 1))
+  nums = arrK.concat(nums.slice(0, nums.length - k))
   return nums
 };
 // @lc code=end
