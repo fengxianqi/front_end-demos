@@ -141,11 +141,12 @@ class MyPromise2 {
         onRejected(this.reason);
       })
     }
+    return this
   }
 }
 const promise = new MyPromise2((resolve, reject) => {
+  resolve('成功');
   setTimeout(() => {
-    resolve('成功');
   },1000);
 }).then(
   (data) => {
@@ -154,4 +155,55 @@ const promise = new MyPromise2((resolve, reject) => {
   (err) => {
     console.log('faild', err)
   }
-)
+).then(res => {
+  console.log('aaa', res)
+})
+
+
+class CustomPromise {
+  state = 'PENDING'
+  value = undefined
+  thenCallbacks = []
+  errorCallbacks = []
+
+  constructor(executor) {
+    executor(this.resolver.bind(this), this.reject.bind(this))
+  }
+
+  resolver(value){
+    this.state = 'FULFILLED'
+    this.value = value
+    this.thenCallbacks.forEach(cb => cb(this.value))
+  }
+
+  reject(value) {
+    this.state = 'REJECTED'
+    this.value = value
+    this.errorCallbacks.forEach(cb => cb(this.value))
+  }
+
+  then(callback){
+    this.thenCallbacks.push(callback)
+    return this
+  }
+
+  catch(callback){
+    this.errorCallbacks.push(callback)
+    return this
+  }
+
+}
+
+
+const cp = new CustomPromise((resolve, reject) => {
+  resolve('cp成功');
+}).then(
+  (data) => {
+    console.log('cp success', data)
+  },
+  (err) => {
+    console.log('cp faild', err)
+  }
+).then(res => {
+  console.log('res', res)
+})
