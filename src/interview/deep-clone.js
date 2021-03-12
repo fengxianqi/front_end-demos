@@ -1,4 +1,4 @@
-
+// https://cloud.tencent.com/developer/article/1497418
 
 
 
@@ -13,7 +13,7 @@ function deepClone(obj) {
     for (const key in obj) {
       target[key] = deepClone(obj[key])
     }
-    console.log(target)
+
     return target
   } else {
     return obj
@@ -22,21 +22,58 @@ function deepClone(obj) {
 
 
 // 考虑循环引用
-// 
-function deepClone2(obj) {
+// 使用map
+function deepClone2(obj, map = new Map()) {
+  if (isObject(obj)) {
+    let target = Array.isArray(obj) ? [] : {}
 
+    // 防止循环引用
+    if (map.get(obj)) {
+      return obj
+    }
+
+    map.set(obj, target)
+
+    for (const key in obj) {
+      target[key] = deepClone(obj[key])
+    }
+
+    return target
+  } else {
+    return obj
+  }
 }
-
 
 
 // 考虑其他数据类型
 // map，set，function， reg
-function deepClone3(obj) {
-
+function deepClone3(target) {
+    // 克隆set
+    let cloneTarget;
+    if (deepTag.includes(type)) {
+      cloneTarget = getInit(target, type);
+    }
+    if (Object.prototype.toString.call(target) === '[object Set]') {
+      target.forEach(value => {
+          cloneTarget.add(deepClone3(value));
+      });
+      return cloneTarget;
+  }
+    // 克隆map
+    if (Object.prototype.toString.call(target) === '[object Map]') {
+      target.forEach((value, key) => {
+          cloneTarget.set(key, clone(value));
+      });
+      return cloneTarget;
+  }
 }
 
 
 
+function getInit(target) {
+  const Ctor = target.constructor;
+  return new Ctor();
+}
 
 
 
