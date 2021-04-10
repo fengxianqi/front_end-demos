@@ -10,6 +10,12 @@
  * @return {number[][]}
  */
 var threeSum = function(nums) {
+// https://leetcode-cn.com/problems/3sum/solution/hua-jie-suan-fa-15-san-shu-zhi-he-by-guanpengchn/
+// 排序
+// 先定位一个最小数字，然后定义左右指针
+// 遍历指针
+
+
   let ret = []
   const len = nums.length
   // 排序
