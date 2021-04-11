@@ -20,7 +20,7 @@ var maxProfit = function(prices) {
     let max = 0
     const len = prices.length
     let p = 0, q = 1
-    while(q < len && q < len) {
+    while(p < len && q < len) {
       // 如果价格是呈递增形式，则q指针+1，直到出现递减
       if (prices[p] < prices[q] && prices[q] > prices[q - 1]) {
         q++
