@@ -23,16 +23,7 @@
 解法二：
 马拉车算法，前后看了几遍，实在是太巧妙了，一般人很难想出来。
 解法思路请参考： https://www.jianshu.com/p/e74ce81ecc7d
-
-*/
-
-
-
-/**
 代码来源： https://github.com/hanzichi/leetcode/blob/master/Algorithms/Longest%20Palindromic%20Substring/longest-palindromic-substring.js
- * @param {string} s
- * @return {string}
- */
 var longestPalindrome = function(s) {
     var str = Manacher(s);
     return str;
@@ -75,3 +66,42 @@ function Manacher(s) {
 
   return tmp;
 }
+*/
+
+
+
+/**
+
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+  // 中心扩展算法
+
+  if (!s) {
+    return ''
+  }
+  const expandAroundCenter = (s, left, right) => {
+    while(left >=0 && right < s.length && s[left] === s[right]) {
+      left--
+      right++
+    }
+    return right - left - 1
+  }
+
+  let start = 0, end = 0
+  for (let i =0;i<s.length;i++){
+    let len1 = expandAroundCenter(s, i, i)
+    let len2 = expandAroundCenter(s, i, i+1)
+    let len = Math.max(len1, len2)
+
+    // 如果出现更大的子串，则替换
+    if (len > end - start) {
+      start = i - Number.parseInt((len - 1)/2)
+      end = i + Number.parseInt(len /2)
+    }
+  }
+  return s.substring(start, end+1)
+
+};
+
