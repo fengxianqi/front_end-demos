@@ -77,6 +77,8 @@ function Manacher(s) {
  */
 var longestPalindrome = function(s) {
   // 中心扩展算法
+  // 遍历，然后将当前i向两边扩散查找（aba情况），
+  // 或者 (i, i+1)向两边查找（abba情况）
 
   if (!s) {
     return ''
