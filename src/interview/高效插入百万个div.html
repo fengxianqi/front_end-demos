@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>高效插入百万个div</title>
+  </head>
+
+  <body>
+    <div id="container"></div>
+    <script>
+      // let fragment = document.createDocumentFragment()
+      // for (let i = 0; i < 1000000; i++) {
+      //   const div = document.createElement('div')
+      //   div.innerText = i
+      //   fragment.appendChild(div)
+      // }
+      // dom.appendChild(fragment)
+      
+      /////////// 常规一次性渲染 /////////////////////
+      // function render(count){
+      //   const dom = document.querySelector('#container');
+      //   let str = '';
+      //   for (let i = 0; i < count; i++) {
+      //     str+= '<div>'+i+'</div>';
+      //   }
+      //   dom.innerHTML = str
+      // }
+      // const COUNT = 1000000
+      // render(COUNT);
+
+
+
+
+      //////////////////// animationFrame分步渲染
+      const dom = document.querySelector('#container');
+
+      const COUNT = 1000000
+      const step = 4 // 每4个渲染一次
+      const loopCount = COUNT / 4 // 循环次数
+      let start = 0
+      function render(){
+        let fragment = document.createDocumentFragment()
+        for (let i = 0; i < step; i++) {
+          const div = document.createElement('div')
+          div.innerText = i + start
+          fragment.appendChild(div)
+        }
+        dom.appendChild(fragment)
+        start += step
+        loop()
+      }
+
+      function loop(){
+        if (start <= loopCount) {
+          window.requestAnimationFrame(render)
+        }
+      }
+
+      loop();
+
+    </script>
+  </body>
+</html>
