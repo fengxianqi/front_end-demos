@@ -9,7 +9,8 @@
  * Initialize your data structure here.
  */
 var MyQueue = function() {
-  this.queue = [];
+  this.inStack = []
+  this.outStack = []
 };
 
 /**
@@ -18,7 +19,7 @@ var MyQueue = function() {
  * @return {void}
  */
 MyQueue.prototype.push = function(x) {
-  this.queue.push(x);
+  this.inStack.push(x)
 };
 
 /**
@@ -26,7 +27,10 @@ MyQueue.prototype.push = function(x) {
  * @return {number}
  */
 MyQueue.prototype.pop = function() {
-  return this.queue.shift();
+  if (!this.outStack.length) {
+    this.in2out()
+}
+return this.outStack.pop()
 };
 
 /**
@@ -34,7 +38,10 @@ MyQueue.prototype.pop = function() {
  * @return {number}
  */
 MyQueue.prototype.peek = function() {
-  return this.queue[0]
+  if (!this.outStack.length) {
+    this.in2out()
+}
+return this.outStack[this.outStack.length - 1]
 };
 
 /**
@@ -42,9 +49,15 @@ MyQueue.prototype.peek = function() {
  * @return {boolean}
  */
 MyQueue.prototype.empty = function() {
-  return this.queue.length === 0
+  return !this.inStack.length && !this.outStack.length
 };
 
+
+MyQueue.prototype.in2out = function(){
+  while(this.inStack.length) {
+      this.outStack.push(this.inStack.pop())
+  }
+}
 /**
  * Your MyQueue object will be instantiated and called as such:
  * var obj = new MyQueue()
