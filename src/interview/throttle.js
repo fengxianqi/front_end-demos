@@ -20,7 +20,7 @@ function throttle(func, wait) {
 
 // 使用定时器
 function throttle2 (func, wait) {
-  let timeout;
+  let context, args;
 
   return function() {
       context = this;
