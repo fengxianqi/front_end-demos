@@ -1,0 +1,94 @@
+<html>
+  <head>
+    <title>1111111</title>
+    <style>
+      #container img{
+        width: 500px;
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <!-- <img src="./images/1.png" alt=""> -->
+    </div>
+  </body>
+
+
+
+  <script>
+    const images = []
+    for (let i = 1; i < 25; i++) {
+      images.push(`./images/${i}.png`)
+    }
+
+    const container = document.querySelector('#container')
+    // 1.png 作为占位
+    
+    container.innerHTML = images.map((item, i) => {
+      return `<img class="img${i}" src="./images/1.png" data-src="${item}" />`
+    }).join('')
+
+    // images.forEach((item, index) => {
+    //   const img = new Image()
+    //   img.src = item
+    //   img.onload = () =>{
+    //     document.querySelector(`.img${index}`).src = item
+    //   }
+    // })
+
+
+    const itemHeight = 500
+
+    window.addEventListener('scroll', function(e){
+      // 防抖
+      // 判断用户进入可视窗口
+      // 加载在viewport内的img
+      loadViewportImage()
+      // TODO: 将不可见的img移除掉，只保留占位
+    })
+
+
+    function getViewportImages(){
+      // itemHeight = 500
+      const top = window.visualViewport.pageTop
+      const windowHeight = window.visualViewport.height
+      const scrollY = window.scrollY
+      // 计算出当前viewport有哪几个images
+
+      // 第一个下标
+      const start = Number.parseInt(top / itemHeight) 
+      
+      // 底部下标
+      const end = Number.parseInt((top + windowHeight)/itemHeight)
+
+      const arr = []
+      for (let i = start; i <= end; i++) {
+        arr.push(i)
+      }
+      return arr
+    }
+
+
+    function loadViewportImage(){
+      // currentImages = [0,1]
+      const currentImages = getViewportImages()
+      currentImages.forEach((item, index) => {
+        const dom = document.querySelector('.img' + item)
+        const src = dom.dataset.src
+        if (src === dom.src) {
+          return
+        }
+        const img = new Image()
+        img.src = src
+        img.onload = () =>{
+          dom.src = src
+        }
+      })
+
+    }
+
+
+ 
+ </script>
+</html>
