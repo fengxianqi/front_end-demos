@@ -15,9 +15,12 @@ var reverseWords = function(s) {
   let left = 0;
   let right = s.length-1;
   let str = ''
+
+  // 去除左右两边的空串
   while(s[left]===' ') left++;
   while(s[right] === ' ') right--;
 
+  // 从右边逐个累加每个单词到str
   while(left <= right){
       let index = right;
      
