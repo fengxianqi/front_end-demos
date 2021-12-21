@@ -75,20 +75,19 @@
  */
 var coinChange = function(coins, amount) {
   //https://leetcode-cn.com/problems/coin-change/solution/js-xiang-jie-dong-tai-gui-hua-de-si-xiang-yi-bu-da/
-  if(!amount) {
-    return 0;
-}
-
-let dp = Array(amount + 1).fill(Infinity);
-dp[0] = 0;
-
-for(let i =0; i < coins.length; i++) {
-    for(let j = coins[i]; j <= amount; j++) {
-        dp[j] = Math.min(dp[j - coins[i]] + 1, dp[j]);
+  let dp = new Array( amount + 1 ).fill( Infinity );
+  dp[0] = 0;
+  
+  for (let i = 1; i <= amount; i++) {
+    for (let coin of coins) {
+      if (i - coin >= 0) {
+        dp[i] = Math.min(dp[i], dp[i - coin] + 1);
+      }
     }
-}
+  }
+  
+  return dp[amount] === Infinity ? -1 : dp[amount];
 
-return dp[amount] === Infinity ? -1 : dp[amount];
 
 // 作者：carlsun-2
 // 链接：https://leetcode-cn.com/problems/coin-change/solution/dai-ma-sui-xiang-lu-dai-ni-xue-tou-wan-q-80r7/
