@@ -42,16 +42,8 @@
  * 1 <= nums.length <= 5 * 10^4
  * -5 * 10^4 <= nums[i] <= 5 * 10^4
  * 
- * 
- */
-
-// @lc code=start
-/**
- * @param {number[]} nums
- * @return {number[]}
- */
 var sortArray = function(nums) {
-  // 快排一
+  // 阮一峰排序方法
 　if (nums.length <= 1) { return nums; }
   const pivotIndex = Math.floor(nums.length / 2);
   const pivot = nums.splice(pivotIndex, 1)[0];
@@ -67,8 +59,50 @@ var sortArray = function(nums) {
 　　}
 
 　　return sortArray(left).concat([pivot], sortArray(right));
-
-  // TODO: 不需额外空间的排序方法
 };
+ * 
+ * 
+ * 
+ */
+
+// @lc code=start
+/**
+ * @param {number[]} nums
+ * @return {number[]}
+ */
+var sortArray = function(nums) {
+  // 快排不需额外空间的排序方法
+
+  if (nums.length <= 1) { return nums}
+  return quickSort(nums, 0, nums.length - 1)
+};
+
+const quickSort = (nums, l, r) => {
+  if (l >= r) {
+    return
+  }
+  // 分区，获取基准的位置
+  const pivotIndex = partition(nums, l, r);
+  quickSort(nums, l, pivotIndex - 1);
+  quickSort(nums, pivotIndex + 1, r);
+  return nums
+}
+
+const partition = (nums, l, r) => {
+  let pivot = r; // 基准在最右边
+  let leftIndex = l;
+
+  // 最小的放到左边，leftIndex是最小组的边界
+  for (let i = l; i < r; i++) {
+      if (nums[i] < nums[pivot]) {
+          [nums[leftIndex], nums[i]] = [nums[i], nums[leftIndex]];
+          leftIndex++;
+      }
+  }
+  // 基准值放到最中间，且返回基准的下标
+  [nums[leftIndex], nums[pivot]] = [nums[pivot], nums[leftIndex]];
+  return leftIndex;
+
+}
 // @lc code=end
 
