@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "axios": "^0.18.1",
-    "protobufjs": "^6.8.8",
+    "protobufjs": "^6.11.3",
     "vue": "^2.5.17",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
