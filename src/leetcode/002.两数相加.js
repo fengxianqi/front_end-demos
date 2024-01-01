@@ -25,7 +25,13 @@
 */
 
 
+/*
+ * @lc app=leetcode.cn id=2 lang=javascript
+ *
+ * [2] 两数相加
+ */
 
+// @lc code=start
 /**
  * Definition for singly-linked list.
  * function ListNode(val) {
@@ -39,35 +45,33 @@
  * @return {ListNode}
  */
 var addTwoNumbers = function(l1, l2) {
-    let p1 = l1  // l1指针
-    let p2 = l2  // l2指针
-    let p = new ListNode(0)  // 当前指针
-    let res = p // 结果
-    let carry = 0 // 记录进位
-    while (p1 || p2 || carry) {
-    	let p1Val = 0 
-    	let p2Val = 0
-    	let cur = 0 // 暂存结果
-    	if (p1) {
-    		p1Val = p1.val
-    		p1 = p1.next
-    	}
 
-    	if (p2) {
-    		p2Val = p2.val
-    		p2 = p2.next
-    	}
+	// 结果
+	const res = new ListNode(0)
+	let carry = 0
+	let cur = res
 
-    	cur = p1Val + p2Val + carry
-    	if (cur >= 10) {
-    		cur = cur % 10
-    		carry = 1
-    	} else {
-    		carry = 0
-    	}
-    	p.next = new ListNode(cur)
-    	p = p.next
-    }
-    return res.next
-    
+	while(l1 || l2) {
+		const x = l1 ? l1.val : 0
+		const y = l2 ? l2.val : 0
+
+		const sum = x + y + carry
+		
+		carry = Math.floor(sum  / 10)
+		const val = sum % 10
+		cur.next = new ListNode(val)
+
+		if (l1) {
+			l1 = l1.next
+		}
+		if (l2) {
+			l2 = l2.next
+		}
+		cur = cur.next
+	}
+	if (carry) {
+		cur.next = new ListNode(1)
+	}
+	return res.next
 };
+// @lc code=end

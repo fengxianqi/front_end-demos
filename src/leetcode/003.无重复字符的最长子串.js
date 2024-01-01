@@ -36,15 +36,6 @@
 若不存在，子串长度加1。
 
 在循环结束前，判断len是否大于maxLength，大于则更新maxLength,这样能使maxLength始终是出现过的最长子串。
-
-*/
-
-
-
-/**
- * @param {string} s
- * @return {number}
- */
 var lengthOfLongestSubstring = function(s) {
     let start = 0 // 当前不重复子串开始的位置
     let len = 0 // 当前不重复子串的长度，与start结合就能得出当前子串
@@ -68,3 +59,34 @@ var lengthOfLongestSubstring = function(s) {
     }
     return maxLegth
 };
+*/
+
+/*
+ * @lc app=leetcode.cn id=3 lang=javascript
+ *
+ * [3] 无重复字符的最长子串
+ */
+
+// @lc code=start
+
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var lengthOfLongestSubstring = function(s) {
+    // 滑动窗口 + hash表
+    const hash = {}
+    let i = 0; // 左边界，没有重复时，调整右边界
+    let res = 0;
+    let len = s.length;
+    for (j = 0; j < len; j++) {
+        if (hash[s[j]] !== undefined) {
+            // 出现重复，调整左边界
+            i = Math.max(i, hash[s[j]] + 1)
+        }
+        hash[s[j]] = j
+        res = Math.max(res, j - i + 1)
+    }
+    return res;
+};
+// @lc code=end
