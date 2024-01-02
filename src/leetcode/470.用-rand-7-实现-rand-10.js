@@ -70,7 +70,7 @@
  * @return {number} a random integer in the range 1 to 7
  */
 var rand10 = function() {
-  //https://leetcode-cn.com/problems/implement-rand10-using-rand7/solution/xiang-xi-si-lu-ji-you-hua-si-lu-fen-xi-zhu-xing-ji/
+  //https://leetcode.cn/problems/implement-rand10-using-rand7/solutions/167850/cong-zui-ji-chu-de-jiang-qi-ru-he-zuo-dao-jun-yun-/
     // 首先得到一个数
     let num = (rand7() - 1) * 7 + rand7();
     // 只要它还大于40，那你就给我不断生成吧

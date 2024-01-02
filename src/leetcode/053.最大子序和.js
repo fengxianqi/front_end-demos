@@ -38,9 +38,7 @@ var maxSubArray = function(nums) {
   return max
 };
 
-* 思路二，动态规划：
- * https://leetcode-cn.com/problems/maximum-subarray/solution/hua-jie-suan-fa-53-zui-da-zi-xu-he-by-guanpengchn/
- * 
+* 思路二，贪心
  * sum表示对结果是否有增益效果，有的时候则累加，无则舍弃
  * 
  * 
@@ -52,17 +50,20 @@ var maxSubArray = function(nums) {
  * @return {number}
  */
 var maxSubArray = function(nums) {
-  let ans = nums[0];
-  let sum = 0;
-  for(const num of nums) {
-      if(sum > 0) {
-          sum += num
-      } else {
-          sum = num
-      }
-      ans = Math.max(ans, sum)
+  // 动态规划
+  // dp[i] = Max(dp[i-1] + nums[i], nums[i])
+
+  const dp = new Array(nums.length)
+  dp[0] = nums[0]
+  let ret = dp[0]
+  for (let i = 1;i<nums.length;i++) {
+    dp[i] = Math.max(dp[i-1] + nums[i], nums[i])
+
+    if (dp[i] > ret) {
+      ret = dp[i]
+    }
   }
-  return ans
+  return ret
 };
 // @lc code=end
 
